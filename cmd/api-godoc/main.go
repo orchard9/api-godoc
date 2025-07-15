@@ -373,10 +373,10 @@ func parseCommaSeparated(s string) []string {
 }
 
 func showHelp() {
-	fmt.Println("PG GoAPI - OpenAPI Documentation Generator")
+	fmt.Println("API GoDoc - OpenAPI Documentation Generator")
 	fmt.Println("")
 	fmt.Println("USAGE:")
-	fmt.Println("  pg-goapi [options] <openapi-spec>")
+	fmt.Println("  api-godoc [options] <openapi-spec>")
 	fmt.Println("")
 	fmt.Println("ARGUMENTS:")
 	fmt.Println("  <openapi-spec>    OpenAPI specification file (JSON/YAML) or URL")
@@ -393,9 +393,9 @@ func showHelp() {
 	fmt.Println("  -h, --help             Show this help message")
 	fmt.Println("")
 	fmt.Println("EXAMPLES:")
-	fmt.Println("  pg-goapi api-spec.json")
-	fmt.Println("  pg-goapi -f json -o analysis.json api-spec.json")
-	fmt.Println("  pg-goapi https://api.example.com/openapi.json")
+	fmt.Println("  api-godoc api-spec.json")
+	fmt.Println("  api-godoc -f json -o analysis.json api-spec.json")
+	fmt.Println("  api-godoc https://api.example.com/openapi.json")
 	fmt.Println("")
 	fmt.Println("For more information, visit: https://github.com/orchard9/api-godoc")
 }
