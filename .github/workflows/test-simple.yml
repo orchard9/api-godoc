@@ -1,0 +1,28 @@
+name: Simple Test
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  simple-test:
+    name: Simple Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x'
+        
+    - name: Run basic commands
+      run: |
+        echo "Go version:"
+        go version
+        echo "Project structure:"
+        ls -la
+        echo "Running make help:"
+        make help

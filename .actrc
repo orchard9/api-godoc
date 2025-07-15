@@ -1,0 +1,15 @@
+# ACT configuration for local GitHub Actions testing
+--platform ubuntu-latest=catthehacker/ubuntu:act-latest
+--platform ubuntu-20.04=catthehacker/ubuntu:act-20.04
+--platform ubuntu-18.04=catthehacker/ubuntu:act-18.04
+--platform windows-latest=catthehacker/ubuntu:act-latest
+--platform macos-latest=catthehacker/ubuntu:act-latest
+
+# Use larger runner images for better compatibility
+--container-architecture linux/amd64
+
+# Reuse containers for faster testing
+--reuse
+
+# Set default secrets (add real secrets to .secrets file if needed)
+--secret-file .secrets

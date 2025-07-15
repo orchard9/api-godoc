@@ -1,0 +1,95 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x'
+        
+    - name: Cache Go modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-1.24.x-${{ hashFiles('**/go.sum') }}
+        
+    - name: Run tests
+      run: make ci
+      
+    - name: Extract version
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Build release binaries
+      run: |
+        mkdir -p dist
+        
+        # Linux amd64
+        GOOS=linux GOARCH=amd64 make build
+        tar -czf dist/pg-goapi-${{ steps.version.outputs.VERSION }}-linux-amd64.tar.gz -C build pg-goapi
+        
+        # Linux arm64
+        GOOS=linux GOARCH=arm64 make build
+        tar -czf dist/pg-goapi-${{ steps.version.outputs.VERSION }}-linux-arm64.tar.gz -C build pg-goapi
+        
+        # macOS amd64
+        GOOS=darwin GOARCH=amd64 make build
+        tar -czf dist/pg-goapi-${{ steps.version.outputs.VERSION }}-darwin-amd64.tar.gz -C build pg-goapi
+        
+        # macOS arm64
+        GOOS=darwin GOARCH=arm64 make build
+        tar -czf dist/pg-goapi-${{ steps.version.outputs.VERSION }}-darwin-arm64.tar.gz -C build pg-goapi
+        
+        # Windows amd64
+        GOOS=windows GOARCH=amd64 make build
+        mv build/pg-goapi build/pg-goapi.exe
+        zip -j dist/pg-goapi-${{ steps.version.outputs.VERSION }}-windows-amd64.zip build/pg-goapi.exe
+        
+    - name: Generate checksums
+      run: |
+        cd dist
+        sha256sum * > checksums.txt
+        
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        # Extract changes since last tag
+        PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+        if [ -n "$PREVIOUS_TAG" ]; then
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "## Changes since $PREVIOUS_TAG" >> $GITHUB_OUTPUT
+          git log --oneline $PREVIOUS_TAG..HEAD --pretty=format:"- %s" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        else
+          echo "RELEASE_NOTES=Initial release" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          dist/*
+        body: ${{ steps.release_notes.outputs.RELEASE_NOTES }}
+        draft: false
+        prerelease: ${{ contains(steps.version.outputs.VERSION, '-') }}
+        generate_release_notes: true

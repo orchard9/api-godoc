@@ -1,0 +1,47 @@
+# Semantic Memory
+
+## Project Facts
+- PG GoAPI is an OpenAPI specification analyzer and documentation generator
+- The project transforms endpoint-centric API specs into resource-centric documentation
+- It is written in Go following elegant efficiency principles
+- The tool generates markdown, JSON, and AI-optimized output formats
+- It uses Mermaid syntax for resource relationship diagrams
+- Mermaid diagrams visualize resources as nodes and relationships as labeled edges
+- Relationship diagram arrows indicate strength: solid (-->) for strong, dashed (-.->) for medium/weak
+- Pattern detection identifies 7 common API patterns: pagination, filtering, sorting, versioning, batch, search, auth
+- Pattern confidence levels are based on example count: high (3+), medium (2), low (1)
+- Patterns include impact statements to guide client implementation decisions
+- Schema reduction supports three levels: essential, standard, and full
+- Essential level keeps only required and key fields (id, name, email, type, status)
+- Standard level filters technical fields (timestamps, metadata, internal fields)
+- Schema reducer preserves nested objects if they contain essential fields
+- Resource filtering supports include lists, exclude lists, and regex patterns
+- Include filter overrides exclude filter when both are specified
+- Resource filters use case-insensitive matching for include/exclude lists
+- Multiple filters combine with OR logic for flexible targeting
+- The project follows clean architecture with clear separation of concerns
+- It is designed as a single binary command-line tool
+- The default output format is markdown
+- The tool focuses on extracting business meaning from technical specifications
+- It groups API endpoints by resources rather than listing them sequentially
+- Resource detection uses path analysis and OpenAPI tags
+- Relationship mapping identifies parent-child and reference connections
+- Pattern recognition extracts common API patterns like pagination
+- The tool is optimized for both human and AI consumption
+- It follows the 90/10 principle: 90% of value in 10% of content
+- The project is licensed under MIT license
+- It targets OpenAPI 3.x specifications exclusively
+- The tool needs Swagger 2.0 to OpenAPI 3.x conversion (critical - UAT examples use Swagger 2.0)
+- The tool performs read-only analysis without modifying specs
+- Both UAT examples (warden.v1.swagger.json, forge.swagger.json) are in Swagger 2.0 format
+- Swagger 2.0 support is essential as many production APIs still use this legacy format
+- The project includes example-output.md showing concrete sample outputs
+- Tasks are organized by priority categories: Foundation, Core, Output, Enhancement, Quality
+- Current project status is Pre-Alpha Development with documentation complete
+- Test coverage achieved: 72.7% total, with critical components well tested
+- Analyzer has 83.8% coverage, Reporter has 89.2% coverage
+- All major components have comprehensive unit tests
+- Real-world API fixtures include Stripe (6.8MB), GitHub (10.8MB), Kubernetes specs
+- Performance benchmarks show 248 operations/sec for full pipeline processing
+- Tool scales well: processes 216 resources from Stripe API in 632ms
+- Production API validation ensures reliability with complex specifications

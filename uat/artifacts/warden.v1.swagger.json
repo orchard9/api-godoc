@@ -1,0 +1,2186 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "warden/v1/common.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AccountService"
+    },
+    {
+      "name": "AdminService"
+    },
+    {
+      "name": "AuthService"
+    },
+    {
+      "name": "Health"
+    },
+    {
+      "name": "OAuth2Service"
+    },
+    {
+      "name": "OrganizationService"
+    },
+    {
+      "name": "UserService"
+    },
+    {
+      "name": "WardenService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/auth/api-keys": {
+      "get": {
+        "operationId": "AuthService_ListApiKeys",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListApiKeysResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "Account ID to list keys for",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "description": "Page size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageToken",
+            "description": "Page token for pagination",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      },
+      "post": {
+        "summary": "API key management",
+        "operationId": "AuthService_CreateApiKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateApiKeyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateApiKeyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/v1/auth/api-keys/{id}": {
+      "get": {
+        "operationId": "AuthService_GetApiKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetApiKeyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "API key ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      },
+      "delete": {
+        "operationId": "AuthService_RevokeApiKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RevokeApiKeyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "API key ID to revoke",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "AuthService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "operationId": "AuthService_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LogoutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LogoutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/v1/auth/refresh": {
+      "post": {
+        "operationId": "AuthService_RefreshToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RefreshTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RefreshTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "summary": "Authentication methods",
+        "operationId": "AuthService_Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "HealthCheckResponseServingStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SERVING",
+        "NOT_SERVING",
+        "SERVICE_UNKNOWN"
+      ],
+      "default": "UNKNOWN"
+    },
+    "SystemHealthResponseOverallStatus": {
+      "type": "string",
+      "enum": [
+        "OVERALL_STATUS_UNSPECIFIED",
+        "OVERALL_STATUS_HEALTHY",
+        "OVERALL_STATUS_DEGRADED",
+        "OVERALL_STATUS_UNHEALTHY"
+      ],
+      "default": "OVERALL_STATUS_UNSPECIFIED"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string",
+          "title": "Unique identifier (username)"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "title": "Optional - for notifications, not auth"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "accountType": {
+          "$ref": "#/definitions/v1AccountType"
+        },
+        "ownerId": {
+          "type": "string",
+          "title": "Required for bots and services"
+        },
+        "status": {
+          "$ref": "#/definitions/v1AccountStatus"
+        },
+        "metadata": {
+          "type": "object",
+          "title": "Structured metadata"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "Account message"
+    },
+    "v1AccountRoleAssignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Assignment ID"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "role": {
+          "$ref": "#/definitions/v1Role",
+          "title": "Role details"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Optional organization ID for org-scoped roles"
+        },
+        "grantedBy": {
+          "type": "string",
+          "title": "Who granted this role"
+        },
+        "grantedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "When the role was granted"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Optional expiration time"
+        }
+      },
+      "title": "Account role assignment"
+    },
+    "v1AccountStatus": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_STATUS_UNSPECIFIED",
+        "ACCOUNT_STATUS_ACTIVE",
+        "ACCOUNT_STATUS_SUSPENDED",
+        "ACCOUNT_STATUS_ARCHIVED",
+        "ACCOUNT_STATUS_PENDING_VERIFICATION"
+      ],
+      "default": "ACCOUNT_STATUS_UNSPECIFIED",
+      "title": "Account status"
+    },
+    "v1AccountType": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_TYPE_UNSPECIFIED",
+        "ACCOUNT_TYPE_PERSON",
+        "ACCOUNT_TYPE_BOT",
+        "ACCOUNT_TYPE_SERVICE"
+      ],
+      "default": "ACCOUNT_TYPE_UNSPECIFIED",
+      "title": "Account types"
+    },
+    "v1AddMemberResponse": {
+      "type": "object",
+      "properties": {
+        "membership": {
+          "$ref": "#/definitions/v1OrganizationMembership",
+          "title": "Membership details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        },
+        "member": {
+          "$ref": "#/definitions/v1OrganizationMember",
+          "title": "Legacy field for backward compatibility"
+        }
+      },
+      "title": "Add member response"
+    },
+    "v1ApiKeyInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "API key ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "Human-readable name"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes/permissions"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Creation timestamp"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Expiration timestamp (0 = no expiration)"
+        },
+        "lastUsedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Last used timestamp"
+        },
+        "revokedAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Revocation timestamp (0 = not revoked)"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Metadata"
+        }
+      }
+    },
+    "v1AssignRoleResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Whether the operation was successful"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success/error message"
+        }
+      },
+      "title": "Assign role response"
+    },
+    "v1AuthorizeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "Authorization code"
+        },
+        "state": {
+          "type": "string",
+          "title": "State parameter"
+        },
+        "redirectUri": {
+          "type": "string",
+          "title": "Redirect URI with parameters"
+        },
+        "consentRequired": {
+          "type": "boolean",
+          "title": "Consent required"
+        },
+        "consentUrl": {
+          "type": "string",
+          "title": "Consent URL if required"
+        }
+      },
+      "title": "OAuth2 authorization response"
+    },
+    "v1BootstrapSuperAdminResponse": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "Created account ID"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      },
+      "title": "Bootstrap super admin response"
+    },
+    "v1ChangePasswordResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Change result message"
+        }
+      }
+    },
+    "v1CheckIdentifierResponse": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "title": "Reason if not available"
+        }
+      },
+      "title": "Check identifier availability response"
+    },
+    "v1CompleteOAuth2Response": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "Access token"
+        },
+        "refreshToken": {
+          "type": "string",
+          "title": "Refresh token"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "accountCreated": {
+          "type": "boolean",
+          "title": "Whether account was created"
+        },
+        "profile": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "User profile info"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      },
+      "title": "Social login complete response"
+    },
+    "v1ComponentHealth": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus",
+          "title": "Component status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Component-specific message"
+        },
+        "lastCheck": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Last check timestamp"
+        }
+      },
+      "title": "Component health status"
+    },
+    "v1CreateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/v1Account"
+        }
+      },
+      "title": "Create account response"
+    },
+    "v1CreateApiKeyRequest": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "Account ID to create the key for"
+        },
+        "name": {
+          "type": "string",
+          "title": "Human-readable name for the key"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes/permissions for the key"
+        },
+        "expiresInDays": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Number of days until expiration (0 = no expiration)"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Optional metadata"
+        }
+      }
+    },
+    "v1CreateApiKeyResponse": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "title": "The actual API key (only returned on creation)"
+        },
+        "id": {
+          "type": "string",
+          "title": "API key ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "Human-readable name"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes/permissions"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Creation timestamp"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Expiration timestamp (0 = no expiration)"
+        }
+      }
+    },
+    "v1CreateOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "organizationId": {
+          "type": "string",
+          "title": "Created organization ID"
+        },
+        "organization": {
+          "$ref": "#/definitions/v1Organization",
+          "title": "Organization details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        },
+        "membership": {
+          "$ref": "#/definitions/v1OrganizationMembership",
+          "title": "Membership details (for creator)"
+        }
+      },
+      "title": "Create organization response"
+    },
+    "v1CreateServiceAccountResponse": {
+      "type": "object",
+      "properties": {
+        "serviceAccount": {
+          "$ref": "#/definitions/v1Account",
+          "title": "Created service account"
+        },
+        "apiKey": {
+          "type": "string",
+          "title": "Generated API key"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        }
+      },
+      "title": "Create service account response"
+    },
+    "v1DeleteAccountResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "title": "Delete account response"
+    },
+    "v1DeleteOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        }
+      },
+      "title": "Delete organization response"
+    },
+    "v1DeviceInfo": {
+      "type": "object",
+      "properties": {
+        "deviceName": {
+          "type": "string",
+          "title": "Device name (e.g., \"John's iPhone\")"
+        },
+        "deviceType": {
+          "type": "string",
+          "title": "Device type (e.g., \"mobile\", \"desktop\", \"tablet\")"
+        },
+        "ipAddress": {
+          "type": "string",
+          "title": "IP address (optional, will be extracted from metadata if not provided)"
+        },
+        "userAgent": {
+          "type": "string",
+          "title": "User agent (optional, will be extracted from metadata if not provided)"
+        }
+      },
+      "title": "Device information for login tracking"
+    },
+    "v1GetAccountByIdentifierResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/v1Account"
+        }
+      },
+      "title": "Get account by identifier response"
+    },
+    "v1GetAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/v1Account"
+        }
+      },
+      "title": "Get account response"
+    },
+    "v1GetAccountRolesResponse": {
+      "type": "object",
+      "properties": {
+        "assignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AccountRoleAssignment"
+          },
+          "title": "Role assignments for the account"
+        }
+      },
+      "title": "Get account roles response"
+    },
+    "v1GetApiKeyResponse": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/v1ApiKeyInfo",
+          "title": "API key info (no actual key)"
+        }
+      }
+    },
+    "v1GetClientResponse": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "$ref": "#/definitions/v1OAuth2Client",
+          "title": "Client details"
+        }
+      },
+      "title": "Get OAuth2 client response"
+    },
+    "v1GetMemberResponse": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "$ref": "#/definitions/v1MemberWithAccount",
+          "title": "Member details"
+        }
+      },
+      "title": "Get member response"
+    },
+    "v1GetMigrationStatusResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Migration status message"
+        }
+      },
+      "title": "Get migration status response (deprecated)"
+    },
+    "v1GetMyProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/v1UserProfile"
+        }
+      },
+      "title": "Get my profile response"
+    },
+    "v1GetOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/v1Organization",
+          "title": "Organization details"
+        }
+      },
+      "title": "Get organization response"
+    },
+    "v1GetSessionsResponse": {
+      "type": "object",
+      "properties": {
+        "sessions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SessionInfo"
+          },
+          "title": "List of active sessions"
+        }
+      }
+    },
+    "v1GetUserConsentsResponse": {
+      "type": "object",
+      "properties": {
+        "consents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserConsent"
+          },
+          "title": "User consents"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        }
+      },
+      "title": "Get user consents response"
+    },
+    "v1HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus"
+        }
+      }
+    },
+    "v1InitiateOAuth2Response": {
+      "type": "object",
+      "properties": {
+        "authUrl": {
+          "type": "string",
+          "title": "Authorization URL"
+        },
+        "state": {
+          "type": "string",
+          "title": "State parameter"
+        },
+        "provider": {
+          "type": "string",
+          "title": "Provider name"
+        }
+      },
+      "title": "Social login initiate response"
+    },
+    "v1IntrospectResponse": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "title": "Whether token is active"
+        },
+        "clientId": {
+          "type": "string",
+          "title": "Client ID"
+        },
+        "username": {
+          "type": "string",
+          "title": "Username"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Token scopes"
+        },
+        "exp": {
+          "type": "string",
+          "format": "int64",
+          "title": "Token expiration"
+        },
+        "iat": {
+          "type": "string",
+          "format": "int64",
+          "title": "Issued at"
+        },
+        "sub": {
+          "type": "string",
+          "title": "Subject"
+        },
+        "aud": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Audience"
+        },
+        "iss": {
+          "type": "string",
+          "title": "Issuer"
+        },
+        "tokenType": {
+          "type": "string",
+          "title": "Token type"
+        }
+      },
+      "title": "Token introspection response"
+    },
+    "v1ListAccountOrganizationsResponse": {
+      "type": "object",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OrganizationWithMembership"
+          },
+          "title": "Organizations with membership details"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        }
+      },
+      "title": "List account organizations response"
+    },
+    "v1ListAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Account"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "List accounts response"
+    },
+    "v1ListApiKeysResponse": {
+      "type": "object",
+      "properties": {
+        "apiKeys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ApiKeyInfo"
+          },
+          "title": "List of API keys"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        }
+      }
+    },
+    "v1ListClientsResponse": {
+      "type": "object",
+      "properties": {
+        "clients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OAuth2Client"
+          },
+          "title": "OAuth2 clients"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        }
+      },
+      "title": "List OAuth2 clients response"
+    },
+    "v1ListMembersResponse": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OrganizationMembership"
+          },
+          "title": "Organization members"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        },
+        "membersWithDetails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MemberWithAccount"
+          },
+          "title": "Members with account details"
+        }
+      },
+      "title": "List members response"
+    },
+    "v1ListOrganizationsResponse": {
+      "type": "object",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Organization"
+          },
+          "title": "Organizations list"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        }
+      },
+      "title": "List organizations response"
+    },
+    "v1ListProvidersResponse": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OAuth2Provider"
+          },
+          "title": "Available providers"
+        }
+      },
+      "title": "List OAuth2 providers response"
+    },
+    "v1ListRolesResponse": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Role"
+          },
+          "title": "Available roles"
+        }
+      },
+      "title": "List roles response"
+    },
+    "v1ListServiceAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "serviceAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Account"
+          },
+          "title": "Service accounts"
+        },
+        "nextPageToken": {
+          "type": "string",
+          "title": "Next page token"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Total count"
+        }
+      },
+      "title": "List service accounts response"
+    },
+    "v1LoginRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "Email address"
+        },
+        "password": {
+          "type": "string",
+          "title": "Password"
+        },
+        "deviceInfo": {
+          "$ref": "#/definitions/v1DeviceInfo",
+          "title": "Optional device information for session tracking"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Optional organization ID for organization-scoped tokens"
+        }
+      }
+    },
+    "v1LoginResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "JWT access token"
+        },
+        "refreshToken": {
+          "type": "string",
+          "title": "Refresh token for renewing access"
+        },
+        "tokenType": {
+          "type": "string",
+          "title": "Token type (always \"Bearer\")"
+        },
+        "expiresIn": {
+          "type": "string",
+          "format": "int64",
+          "title": "Access token expiration time in seconds"
+        },
+        "account": {
+          "$ref": "#/definitions/v1Account",
+          "title": "Account information"
+        },
+        "sessionId": {
+          "type": "string",
+          "title": "Session ID"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Organization ID if organization-scoped login"
+        }
+      }
+    },
+    "v1LogoutRequest": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "title": "Optional: specific session ID to logout (if not provided, logs out current session)"
+        },
+        "allSessions": {
+          "type": "boolean",
+          "title": "Whether to logout all sessions for this account"
+        }
+      }
+    },
+    "v1LogoutResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      }
+    },
+    "v1MemberWithAccount": {
+      "type": "object",
+      "properties": {
+        "membership": {
+          "$ref": "#/definitions/v1OrganizationMembership",
+          "title": "Organization membership"
+        },
+        "account": {
+          "$ref": "#/definitions/v1Account",
+          "title": "Account details"
+        },
+        "member": {
+          "$ref": "#/definitions/v1OrganizationMember",
+          "title": "Legacy field"
+        }
+      },
+      "title": "Member with account details"
+    },
+    "v1OAuth2Client": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "title": "Client ID"
+        },
+        "clientName": {
+          "type": "string",
+          "title": "Client name"
+        },
+        "clientDescription": {
+          "type": "string",
+          "title": "Client description"
+        },
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Redirect URIs"
+        },
+        "allowedScopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed scopes"
+        },
+        "grantTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Grant types"
+        },
+        "clientType": {
+          "type": "string",
+          "title": "Client type"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Client metadata"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Update timestamp"
+        },
+        "createdBy": {
+          "type": "string",
+          "title": "Created by account ID"
+        },
+        "status": {
+          "type": "string",
+          "title": "Client status"
+        }
+      },
+      "title": "OAuth2 client definition"
+    },
+    "v1OAuth2Provider": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Provider name"
+        },
+        "displayName": {
+          "type": "string",
+          "title": "Display name"
+        },
+        "enabled": {
+          "type": "boolean",
+          "title": "Whether provider is enabled"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Provider configuration"
+        }
+      },
+      "title": "OAuth2 provider definition"
+    },
+    "v1Organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Organization ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "Organization name"
+        },
+        "slug": {
+          "type": "string",
+          "title": "Organization slug/identifier"
+        },
+        "description": {
+          "type": "string",
+          "title": "Organization description"
+        },
+        "status": {
+          "type": "string",
+          "title": "Organization status"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Organization metadata"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Update timestamp"
+        },
+        "createdBy": {
+          "type": "string",
+          "title": "Created by account ID"
+        },
+        "memberCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Member count"
+        }
+      },
+      "title": "Organization definition"
+    },
+    "v1OrganizationMember": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Membership ID"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Organization ID"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "account": {
+          "$ref": "#/definitions/v1Account",
+          "title": "Account details"
+        },
+        "role": {
+          "type": "string",
+          "title": "Member role"
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Join timestamp"
+        },
+        "addedBy": {
+          "type": "string",
+          "title": "Added by account ID"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Permissions"
+        },
+        "invitedBy": {
+          "type": "string",
+          "title": "Invited by (legacy)"
+        }
+      },
+      "title": "Organization member (alias for OrganizationMembership)"
+    },
+    "v1OrganizationMembership": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Membership ID"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Organization ID"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID"
+        },
+        "account": {
+          "$ref": "#/definitions/v1Account",
+          "title": "Account details"
+        },
+        "role": {
+          "type": "string",
+          "title": "Member role"
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Join timestamp"
+        },
+        "addedBy": {
+          "type": "string",
+          "title": "Added by account ID"
+        }
+      },
+      "title": "Organization membership"
+    },
+    "v1OrganizationWithMembership": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/v1Organization",
+          "title": "Organization details"
+        },
+        "membership": {
+          "$ref": "#/definitions/v1OrganizationMembership",
+          "title": "Membership details"
+        }
+      },
+      "title": "Organization with membership details"
+    },
+    "v1PaginationRequest": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Maximum number of items to return"
+        },
+        "pageToken": {
+          "type": "string",
+          "title": "Page token from previous response"
+        }
+      },
+      "title": "Pagination request parameters"
+    },
+    "v1RefreshTokenRequest": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "type": "string",
+          "title": "Refresh token"
+        }
+      }
+    },
+    "v1RefreshTokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "New JWT access token"
+        },
+        "tokenType": {
+          "type": "string",
+          "title": "Token type (always \"Bearer\")"
+        },
+        "expiresIn": {
+          "type": "string",
+          "format": "int64",
+          "title": "Access token expiration time in seconds"
+        }
+      }
+    },
+    "v1RegisterClientResponse": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "title": "Client ID"
+        },
+        "clientSecret": {
+          "type": "string",
+          "title": "Client secret (if confidential)"
+        },
+        "client": {
+          "$ref": "#/definitions/v1OAuth2Client",
+          "title": "Client details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      },
+      "title": "Register OAuth2 client response"
+    },
+    "v1RegisterRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "Email address for the account"
+        },
+        "password": {
+          "type": "string",
+          "title": "Password for the account"
+        },
+        "identifier": {
+          "type": "string",
+          "title": "Optional unique identifier (username)"
+        },
+        "displayName": {
+          "type": "string",
+          "title": "Display name for the account"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Optional organization ID to join"
+        },
+        "invitationCode": {
+          "type": "string",
+          "title": "Optional invitation code"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Optional metadata"
+        },
+        "entryPoint": {
+          "type": "string",
+          "title": "Optional entry point identifier (where the user came from)"
+        },
+        "referrerUrl": {
+          "type": "string",
+          "title": "Optional referrer URL"
+        }
+      }
+    },
+    "v1RegisterResponse": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "Created account ID"
+        },
+        "message": {
+          "type": "string",
+          "title": "Registration message"
+        },
+        "requiresEmailVerification": {
+          "type": "boolean",
+          "title": "Whether email verification is required"
+        }
+      }
+    },
+    "v1RemoveMemberResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        }
+      },
+      "title": "Remove member response"
+    },
+    "v1RemoveRoleResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Whether the operation was successful"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success/error message"
+        }
+      },
+      "title": "Remove role response"
+    },
+    "v1RequestPasswordResetResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Response message (always success for security)"
+        }
+      }
+    },
+    "v1ResetPasswordResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Reset result message"
+        },
+        "autoLogin": {
+          "type": "boolean",
+          "title": "Whether user should be automatically logged in"
+        },
+        "loginTokens": {
+          "$ref": "#/definitions/v1LoginResponse",
+          "title": "Login tokens if auto_login is true"
+        }
+      }
+    },
+    "v1RevokeApiKeyResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        }
+      }
+    },
+    "v1RevokeClientResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Message"
+        }
+      },
+      "title": "Revoke OAuth2 client response"
+    },
+    "v1RevokeResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Message"
+        }
+      },
+      "title": "Token revocation response"
+    },
+    "v1RevokeSessionResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      }
+    },
+    "v1RevokeUserConsentResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Message"
+        }
+      },
+      "title": "Revoke user consent response"
+    },
+    "v1Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Role ID"
+        },
+        "name": {
+          "type": "string",
+          "title": "Role name"
+        },
+        "description": {
+          "type": "string",
+          "title": "Role description"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Role hierarchy level"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Creation timestamp"
+        }
+      },
+      "title": "Role definition"
+    },
+    "v1ServiceInfoResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Service name"
+        },
+        "version": {
+          "type": "string",
+          "title": "Service version"
+        },
+        "build": {
+          "type": "string",
+          "title": "Build information"
+        },
+        "environment": {
+          "type": "string",
+          "title": "Environment"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Available services"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Service start time"
+        },
+        "docsUrl": {
+          "type": "string",
+          "title": "API documentation URL"
+        }
+      },
+      "title": "Service information response"
+    },
+    "v1SessionInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Session ID"
+        },
+        "deviceName": {
+          "type": "string",
+          "title": "Device name"
+        },
+        "deviceType": {
+          "type": "string",
+          "title": "Device type"
+        },
+        "ipAddress": {
+          "type": "string",
+          "title": "IP address"
+        },
+        "userAgent": {
+          "type": "string",
+          "title": "User agent"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Creation timestamp"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Last activity timestamp"
+        },
+        "isCurrent": {
+          "type": "boolean",
+          "title": "Whether this is the current session"
+        }
+      }
+    },
+    "v1SwitchOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "New JWT access token with organization context"
+        },
+        "refreshToken": {
+          "type": "string",
+          "title": "New refresh token"
+        },
+        "expiresIn": {
+          "type": "string",
+          "format": "int64",
+          "title": "Access token expiration time in seconds"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Organization ID (empty if global context)"
+        }
+      }
+    },
+    "v1SystemHealthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/SystemHealthResponseOverallStatus",
+          "title": "Overall service status"
+        },
+        "message": {
+          "type": "string",
+          "title": "Status message"
+        },
+        "components": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1ComponentHealth"
+          },
+          "title": "Component health status"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Check timestamp"
+        }
+      },
+      "title": "System-wide health check response"
+    },
+    "v1TokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "Access token"
+        },
+        "tokenType": {
+          "type": "string",
+          "title": "Token type"
+        },
+        "expiresIn": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Expires in seconds"
+        },
+        "refreshToken": {
+          "type": "string",
+          "title": "Refresh token"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Granted scopes"
+        },
+        "additionalInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Additional token info"
+        }
+      },
+      "title": "OAuth2 token response"
+    },
+    "v1UpdateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/v1Account"
+        }
+      },
+      "title": "Update account response"
+    },
+    "v1UpdateClientResponse": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "$ref": "#/definitions/v1OAuth2Client",
+          "title": "Updated client details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Success message"
+        }
+      },
+      "title": "Update OAuth2 client response"
+    },
+    "v1UpdateMemberResponse": {
+      "type": "object",
+      "properties": {
+        "membership": {
+          "$ref": "#/definitions/v1OrganizationMembership",
+          "title": "Updated membership details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        },
+        "member": {
+          "$ref": "#/definitions/v1OrganizationMember",
+          "title": "Legacy field for backward compatibility"
+        }
+      },
+      "title": "Update member response"
+    },
+    "v1UpdateMyProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/v1UserProfile"
+        }
+      },
+      "title": "Update my profile response"
+    },
+    "v1UpdateOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/v1Organization",
+          "title": "Updated organization details"
+        },
+        "message": {
+          "type": "string",
+          "title": "Response message"
+        }
+      },
+      "title": "Update organization response"
+    },
+    "v1UserConsent": {
+      "type": "object",
+      "properties": {
+        "consentId": {
+          "type": "string",
+          "title": "Consent ID"
+        },
+        "userId": {
+          "type": "string",
+          "title": "User ID"
+        },
+        "clientId": {
+          "type": "string",
+          "title": "Client ID"
+        },
+        "clientName": {
+          "type": "string",
+          "title": "Client name"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Granted scopes"
+        },
+        "grantedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Consent timestamp"
+        },
+        "lastUsedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Last used timestamp"
+        }
+      },
+      "title": "User consent definition"
+    },
+    "v1UserProfile": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "accountType": {
+          "$ref": "#/definitions/v1AccountType"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/v1AccountStatus"
+        }
+      },
+      "title": "User profile information"
+    },
+    "v1ValidateTokenResponse": {
+      "type": "object",
+      "properties": {
+        "valid": {
+          "type": "boolean",
+          "title": "Whether the token is valid"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account ID if token is valid"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Token scopes"
+        },
+        "tokenType": {
+          "type": "string",
+          "title": "Token type (api_key, session, etc.)"
+        },
+        "errorMessage": {
+          "type": "string",
+          "title": "Error message if validation failed"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "Token expiration timestamp"
+        },
+        "message": {
+          "type": "string",
+          "title": "Legacy fields for backward compatibility"
+        },
+        "email": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string",
+          "title": "Organization ID for organization-scoped tokens"
+        }
+      }
+    },
+    "v1VerifyEmailResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Verification result message"
+        },
+        "autoLogin": {
+          "type": "boolean",
+          "title": "Whether user should be automatically logged in"
+        },
+        "loginTokens": {
+          "$ref": "#/definitions/v1LoginResponse",
+          "title": "Login tokens if auto_login is true"
+        }
+      }
+    }
+  }
+}
