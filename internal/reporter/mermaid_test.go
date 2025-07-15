@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 func TestGenerateMermaidDiagram(t *testing.T) {

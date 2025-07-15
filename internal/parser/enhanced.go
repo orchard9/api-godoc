@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-openapi/loads"
 	"github.com/go-openapi/spec"
-	"github.com/orchard9/pg-goapi/internal/converter"
+	"github.com/orchard9/api-godoc/internal/converter"
 )
 
 // enhancedParser provides library-backed OpenAPI parsing with validation

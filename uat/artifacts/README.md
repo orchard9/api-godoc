@@ -1,6 +1,6 @@
 # UAT Artifacts
 
-This directory contains example API specifications for testing pg-goapi.
+This directory contains example API specifications for testing api-godoc.
 
 ## Available Specifications
 
@@ -27,7 +27,7 @@ This specification demonstrates a complex, real-world API with:
 
 During development and testing:
 ```bash
-pg-goapi uat/artifacts/warden.v1.swagger.json
+api-godoc uat/artifacts/warden.v1.swagger.json
 ```
 
 ## Notes

@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/orchard9/pg-goapi/internal/converter"
+	"github.com/orchard9/api-godoc/internal/converter"
 	"gopkg.in/yaml.v3"
 )
 

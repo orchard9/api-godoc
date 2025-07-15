@@ -4,8 +4,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/orchard9/pg-goapi/internal/parser"
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/internal/parser"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // ResourceAnalyzer handles resource extraction from OpenAPI paths

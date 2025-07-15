@@ -4,22 +4,22 @@
 
 ```bash
 # Analyze a local OpenAPI spec
-pg-goapi api-spec.json
+api-godoc api-spec.json
 
 # Analyze from URL
-pg-goapi https://api.example.com/openapi.json
+api-godoc https://api.example.com/openapi.json
 
 # Output to specific file
-pg-goapi -o api-docs.md api-spec.json
+api-godoc -o api-docs.md api-spec.json
 
 # Generate AI-optimized format
-pg-goapi -f ai api-spec.json
+api-godoc -f ai api-spec.json
 ```
 
 ## Command Line Options
 
 ```bash
-pg-goapi [flags] <spec-file-or-url>
+api-godoc [flags] <spec-file-or-url>
 ```
 
 ### Flags
@@ -50,19 +50,19 @@ Human-readable documentation with:
 - Common patterns
 
 ```bash
-pg-goapi -f markdown api-spec.json
+api-godoc -f markdown api-spec.json
 ```
 
 ### JSON
 Machine-readable format for tooling integration:
 ```bash
-pg-goapi -f json -o api-analysis.json api-spec.json
+api-godoc -f json -o api-analysis.json api-spec.json
 ```
 
 ### AI-Optimized
 Condensed format optimized for LLM context windows:
 ```bash
-pg-goapi -f ai -o api-context.txt api-spec.json
+api-godoc -f ai -o api-context.txt api-spec.json
 ```
 
 ## Examples
@@ -71,23 +71,23 @@ pg-goapi -f ai -o api-context.txt api-spec.json
 
 ```bash
 # Analyze a local file
-pg-goapi my-api.json
+api-godoc my-api.json
 
 # Analyze from URL
-pg-goapi https://petstore.swagger.io/v2/swagger.json
+api-godoc https://petstore.swagger.io/v2/swagger.json
 
 # Specify output format and file
-pg-goapi -f json -o analysis.json my-api.json
+api-godoc -f json -o analysis.json my-api.json
 ```
 
 ### Working with UAT Examples
 
 ```bash
 # Analyze the warden authentication API
-pg-goapi uat/artifacts/warden.v1.swagger.json
+api-godoc uat/artifacts/warden.v1.swagger.json
 
 # Generate AI-optimized output for forge API
-pg-goapi -f ai uat/artifacts/forge.swagger.json
+api-godoc -f ai uat/artifacts/forge.swagger.json
 ```
 
 ## Understanding Output
@@ -131,7 +131,7 @@ Identifies how resources connect to each other based on:
 Ensure the path to your OpenAPI specification is correct:
 ```bash
 # Use absolute path if relative path fails
-pg-goapi /full/path/to/api-spec.json
+api-godoc /full/path/to/api-spec.json
 ```
 
 #### Invalid OpenAPI Format
@@ -144,13 +144,13 @@ When analyzing remote specifications:
 ```bash
 # Download first if network is unreliable
 curl https://api.example.com/openapi > local-spec.json
-pg-goapi local-spec.json
+api-godoc local-spec.json
 ```
 
 ### Debug Mode
 Use verbose flag for detailed logging:
 ```bash
-pg-goapi -v api-spec.json
+api-godoc -v api-spec.json
 ```
 
 ## Next Steps

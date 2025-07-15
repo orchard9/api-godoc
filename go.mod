@@ -1,4 +1,4 @@
-module github.com/orchard9/pg-goapi
+module github.com/orchard9/api-godoc
 
 go 1.24.3
 

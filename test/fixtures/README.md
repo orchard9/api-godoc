@@ -1,6 +1,6 @@
 # Real-World API Fixtures
 
-This directory contains real-world OpenAPI specifications used for testing pg-goapi against production-quality APIs.
+This directory contains real-world OpenAPI specifications used for testing api-godoc against production-quality APIs.
 
 ## Included APIs
 

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/orchard9/pg-goapi/internal/parser"
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/internal/parser"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // Analyzer defines the interface for resource analysis

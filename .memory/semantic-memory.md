@@ -1,7 +1,7 @@
 # Semantic Memory
 
 ## Project Facts
-- PG GoAPI is an OpenAPI specification analyzer and documentation generator
+- API GoDoc is an OpenAPI specification analyzer and documentation generator
 - The project transforms endpoint-centric API specs into resource-centric documentation
 - It is written in Go following elegant efficiency principles
 - The tool generates markdown, JSON, and AI-optimized output formats

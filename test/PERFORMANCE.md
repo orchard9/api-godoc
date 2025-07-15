@@ -1,6 +1,6 @@
 # Performance Benchmarks
 
-This document contains performance benchmarks for pg-goapi against real-world API specifications.
+This document contains performance benchmarks for api-godoc against real-world API specifications.
 
 ## Test Environment
 - Platform: Apple M2 Ultra

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/orchard9/pg-goapi/internal/parser"
+	"github.com/orchard9/api-godoc/internal/parser"
 )
 
 func TestSchemaReduction(t *testing.T) {

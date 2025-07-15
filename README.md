@@ -1,4 +1,4 @@
-# PG GoAPI
+# API GoDoc
 
 Automatically generate resource-centric documentation from OpenAPI specifications with relationship diagrams, capability matrices, and semantic analysis.
 

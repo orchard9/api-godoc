@@ -70,7 +70,7 @@ Write and refine code until:
 ### 8. User Acceptance Testing
 Perform final validation against real-world scenarios:
 - Build the binary with `make build`  
-- Test CLI functionality with `./pg-goapi --help` and `./pg-goapi --version`
+- Test CLI functionality with `./api-godoc --help` and `./api-godoc --version`
 - Test against actual OpenAPI specifications (Stripe, GitHub, etc.)
 - Verify all requirements are met from user's perspective
 - Ensure the solution is intuitive and reliable

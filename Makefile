@@ -1,8 +1,8 @@
-# PG GoAPI - Makefile
+# API GoDoc - Makefile
 # Build automation for OpenAPI documentation generator
 
 # Binary name and version
-BINARY_NAME=pg-goapi
+BINARY_NAME=api-godoc
 VERSION?=dev
 BUILD_TIME=$(shell date -u +%Y%m%d.%H%M%S)
 BUILD_HASH=$(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
@@ -181,6 +181,6 @@ help:
 	@echo "  dev-setup    - Set up development environment"
 	@echo "  ci-setup     - Set up CI environment"
 	@echo "  act-test     - Test GitHub Actions locally with ACT"
-	@echo "  release-local- Build release binaries locally"
+	@echo "  release-local - Build release binaries locally"
 	@echo "  install      - Install binary to GOPATH/bin"
 	@echo "  help         - Show this help message"

@@ -1,0 +1,63 @@
+run:
+  timeout: 5m
+  go: "1.24"
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - experimental
+      - opinionated
+      - performance
+      - style
+  gocyclo:
+    min-complexity: 15
+  goimports:
+    local-prefixes: github.com/orchard9/pg-goapi
+  golint:
+    min-confidence: 0
+  govet:
+    check-shadowing: true
+  misspell:
+    locale: US
+  nolintlint:
+    allow-leading-space: true
+    allow-unused: false
+    require-explanation: false
+    require-specific: false
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - "disableStutteringCheck"
+
+linters:
+  disable-all: true
+  enable:
+    - gofmt
+    - gosimple
+    - ineffassign
+    - misspell
+    - staticcheck
+    - typecheck
+    - unused
+    - whitespace
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - govet  # Allow variable shadowing in tests
+    - path: cmd/
+      linters:
+        - govet  # Allow variable shadowing in cmd
+    - path: internal/parser/
+      linters:
+        - govet  # Allow variable shadowing in parser
+  exclude-use-default: true

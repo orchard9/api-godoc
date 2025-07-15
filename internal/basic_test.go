@@ -3,9 +3,9 @@ package internal
 import (
 	"testing"
 
-	"github.com/orchard9/pg-goapi/internal/analyzer"
-	"github.com/orchard9/pg-goapi/internal/reporter"
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/internal/analyzer"
+	"github.com/orchard9/api-godoc/internal/reporter"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // TestAnalyzerBasics tests basic analyzer functionality

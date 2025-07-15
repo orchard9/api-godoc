@@ -1,18 +1,29 @@
-# Contributing to PG GoAPI
+# Contributing to API GoDoc
 
 ## Development Setup
 
 ### Prerequisites
-- Go 1.21+
+- Go 1.24.x (or 1.23.x for compatibility)
 - Make
 - Git
+- Docker (for local CI testing with ACT)
 
 ### Quick Start
 ```bash
-git clone https://github.com/orchard9/pg-goapi
-cd pg-goapi
-make test
+git clone https://github.com/orchard9/api-godoc
+cd api-godoc
+make ci        # Runs full CI pipeline
 make build
+make uat       # User acceptance testing
+```
+
+### Setting Up Local CI Testing
+```bash
+# Install ACT for local GitHub Actions testing
+curl -q https://raw.githubusercontent.com/nektos/act/master/install.sh | bash
+
+# Test workflows locally before pushing
+make act-test  # Run CI workflow locally
 ```
 
 ## Development Workflow
@@ -59,7 +70,7 @@ make watch  # Runs tests on file changes
 
 ## Project Structure
 ```
-cmd/pg-goapi/      # CLI entry point
+cmd/api-godoc/      # CLI entry point
 internal/
   analyzer/        # OpenAPI parsing and analysis
   extractor/       # Resource and relationship extraction
@@ -76,9 +87,10 @@ tests/
 
 ### Before Submitting
 1. Run `make ci` - all checks must pass
-2. Add tests for new functionality
-3. Update relevant documentation
-4. Ensure backward compatibility
+2. Test locally with `make act-test` (optional but recommended)
+3. Add tests for new functionality
+4. Update relevant documentation
+5. Ensure backward compatibility
 
 ### PR Description Template
 ```
@@ -156,21 +168,81 @@ make bench-compare  # Compare with previous commit
 - Document breaking changes
 - Include migration guides
 
+## CI/CD Workflow
+
+### Continuous Integration
+Our CI pipeline runs on every push and pull request:
+
+- **Multi-platform testing**: Linux, Windows, macOS
+- **Multi-version testing**: Go 1.24.x and 1.23.x
+- **Automated linting**: golangci-lint, go vet, gofmt
+- **Security scanning**: gosec for security vulnerabilities
+- **Coverage reporting**: CodeCov integration
+- **Real-world testing**: UAT with production API specs
+
+### Local CI Testing
+```bash
+# Install ACT for local testing
+make ci-setup
+
+# Test CI workflow locally
+make act-test
+
+# Build release binaries locally
+make release-local
+```
+
+### GitHub Actions Workflows
+
+#### CI Pipeline (`.github/workflows/ci.yml`)
+- Triggers on push to main/develop, PRs to main
+- Runs tests, linting, security scans
+- Matrix testing across OS and Go versions
+- Uploads coverage reports
+
+#### Release Pipeline (`.github/workflows/release.yml`)
+- Triggers on version tags (`v*.*.*`)
+- Builds cross-platform binaries
+- Creates GitHub releases with artifacts
+- Generates release notes automatically
+
+#### Dependabot Configuration
+- Weekly dependency updates
+- Automated security updates
+- Separate updates for Go modules and GitHub Actions
+
 ## Release Process
 
-### Version Bumping
+### Automated Releases
+Releases are triggered by pushing version tags:
 ```bash
-make version-patch  # 0.1.0 -> 0.1.1
-make version-minor  # 0.1.0 -> 0.2.0
-make version-major  # 0.1.0 -> 1.0.0
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+This automatically:
+- Runs full CI pipeline
+- Builds binaries for all platforms
+- Creates GitHub release with artifacts
+- Generates checksums and release notes
+
+### Manual Release Testing
+```bash
+# Test release process locally
+make release-local
+
+# Validate binaries
+./dist/api-godoc-linux-amd64 --version
+./dist/api-godoc-darwin-arm64 --version
 ```
 
 ### Release Checklist
-- [ ] All tests passing
+- [ ] All tests passing in CI
 - [ ] Documentation updated
 - [ ] CHANGELOG.md updated
-- [ ] Binary builds successfully
-- [ ] Tagged and pushed
+- [ ] Tag created and pushed
+- [ ] GitHub release artifacts generated
+- [ ] Release notes reviewed
 
 ## Getting Help
 

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // Reporter defines the interface for generating output

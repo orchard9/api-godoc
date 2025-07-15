@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // ResourceFilter defines filtering criteria for resources

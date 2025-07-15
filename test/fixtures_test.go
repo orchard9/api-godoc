@@ -5,19 +5,19 @@ import (
 	"testing"
 	"time"
 
-	"github.com/orchard9/pg-goapi/internal/analyzer"
-	"github.com/orchard9/pg-goapi/internal/parser"
-	"github.com/orchard9/pg-goapi/internal/reporter"
-	"github.com/orchard9/pg-goapi/pkg/models"
+	"github.com/orchard9/api-godoc/internal/analyzer"
+	"github.com/orchard9/api-godoc/internal/parser"
+	"github.com/orchard9/api-godoc/internal/reporter"
+	"github.com/orchard9/api-godoc/pkg/models"
 )
 
 // TestRealWorldAPIFixtures tests the tool against real-world API specifications
 func TestRealWorldAPIFixtures(t *testing.T) {
 	fixtures := []struct {
-		name     string
-		file     string
-		minRsrc  int // minimum expected resources
-		maxTime  time.Duration
+		name      string
+		file      string
+		minRsrc   int // minimum expected resources
+		maxTime   time.Duration
 		skipLarge bool
 	}{
 		{
@@ -28,7 +28,7 @@ func TestRealWorldAPIFixtures(t *testing.T) {
 		},
 		{
 			name:    "Kubernetes Simplified",
-			file:    "kubernetes-simplified.json", 
+			file:    "kubernetes-simplified.json",
 			minRsrc: 2,
 			maxTime: 5 * time.Second,
 		},
@@ -55,10 +55,10 @@ func TestRealWorldAPIFixtures(t *testing.T) {
 			}
 
 			start := time.Now()
-			
+
 			// Test file path
 			fixturePath := filepath.Join("fixtures", tt.file)
-			
+
 			// Initialize components
 			p := parser.New()
 			resourceAnalyzer := analyzer.NewResourceAnalyzer()
@@ -148,7 +148,7 @@ func TestRealWorldAPIFixtures(t *testing.T) {
 				t.Errorf("Processing took too long: %v > %v", elapsed, tt.maxTime)
 			}
 
-			t.Logf("Processed %s: %d resources, %d patterns, %v", 
+			t.Logf("Processed %s: %d resources, %d patterns, %v",
 				tt.name, len(resources), len(patterns), elapsed)
 		})
 	}
@@ -157,9 +157,9 @@ func TestRealWorldAPIFixtures(t *testing.T) {
 // TestFixtureResourceCoverage tests that we extract reasonable resource coverage
 func TestFixtureResourceCoverage(t *testing.T) {
 	tests := []struct {
-		name           string
-		file           string
-		minCoverage    int // minimum percentage of endpoints that should be resources
+		name        string
+		file        string
+		minCoverage int // minimum percentage of endpoints that should be resources
 	}{
 		{
 			name:        "Stripe Minimal",
@@ -176,7 +176,7 @@ func TestFixtureResourceCoverage(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			fixturePath := filepath.Join("fixtures", tt.file)
-			
+
 			p := parser.New()
 			spec, err := p.ParseFile(fixturePath)
 			if err != nil {
@@ -188,7 +188,7 @@ func TestFixtureResourceCoverage(t *testing.T) {
 
 			totalEndpoints := len(spec.Paths)
 			totalOperations := countOperations(resources)
-			
+
 			if totalEndpoints == 0 {
 				t.Fatal("No endpoints found")
 			}
@@ -206,18 +206,18 @@ func TestFixtureResourceCoverage(t *testing.T) {
 // TestPatternDetectionOnFixtures tests pattern detection on real APIs
 func TestPatternDetectionOnFixtures(t *testing.T) {
 	tests := []struct {
-		name            string
-		file            string
+		name             string
+		file             string
 		expectedPatterns []string
 	}{
 		{
-			name: "Stripe Minimal",
-			file: "stripe-minimal.json",
+			name:             "Stripe Minimal",
+			file:             "stripe-minimal.json",
 			expectedPatterns: []string{}, // Minimal spec may not show patterns clearly
 		},
 		{
-			name: "Kubernetes Simplified",
-			file: "kubernetes-simplified.json",
+			name:             "Kubernetes Simplified",
+			file:             "kubernetes-simplified.json",
 			expectedPatterns: []string{}, // Simple spec may not show patterns
 		},
 	}
@@ -225,7 +225,7 @@ func TestPatternDetectionOnFixtures(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			fixturePath := filepath.Join("fixtures", tt.file)
-			
+
 			p := parser.New()
 			spec, err := p.ParseFile(fixturePath)
 			if err != nil {
