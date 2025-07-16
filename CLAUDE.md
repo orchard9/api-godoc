@@ -27,6 +27,7 @@ Ask questions until you have 100% confidence in understanding:
 - Resource grouping requirements
 - Output format preferences
 - Edge cases and special handling
+- **CRITICAL**: For testing/validation tasks, always investigate existing behavior thoroughly before writing tests. Use available tools to understand what they actually produce.
 
 ### 1. Create Project Header
 Write a clear header that describes the project's purpose and scope.
@@ -159,3 +160,38 @@ When the user says "check gh", perform these actions:
    - Add new tasks for any issues found to `.memory/tasks.md`
    - Prioritize based on severity (build failures = high priority)
    - Include issue/run numbers in task descriptions for tracking
+
+## How to Handle Testing and UAT Tasks
+
+When implementing tests for existing functionality, follow this investigation-first approach:
+
+### 1. Investigate Current Behavior First
+- Run the actual tool with various inputs to understand real behavior
+- Document what the tool actually produces, not what you expect
+- Use `./build/tool --help`, sample inputs, different formats
+- Capture actual outputs before writing any test expectations
+- For UAT tasks, run `make uat` and examine existing test patterns
+
+### 2. Start with Smoke Tests
+- Begin with simple "does it run without crashing" tests
+- Verify basic functionality works before testing edge cases
+- Validate one feature at a time rather than comprehensive suites
+- Test the most critical user paths first
+
+### 3. Ground Tests in Reality
+- Tests should validate actual behavior, not ideal behavior
+- If behavior doesn't match expectations, decide: fix code or fix expectations
+- Document any surprising behavior discovered during investigation
+- Use actual tool outputs to write accurate test assertions
+
+### 4. Build Complexity Gradually
+- Start with basic input/output validation
+- Add detailed content validation only after basics work
+- Prefer multiple simple tests over complex multi-assertion tests
+- Each test should validate one specific aspect of functionality
+
+### 5. Validate Against Real-World Usage
+- Test with actual user inputs (real API specifications)
+- Verify edge cases that users might encounter
+- Ensure error messages are helpful and accurate
+- Test all supported output formats and options
