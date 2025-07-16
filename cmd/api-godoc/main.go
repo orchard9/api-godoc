@@ -204,7 +204,7 @@ func processAPI(config Config) error {
 		if config.Verbose {
 			log.Printf("Writing output to file: %s", config.OutputFile)
 		}
-		err = os.WriteFile(config.OutputFile, []byte(output), 0644)
+		err = os.WriteFile(config.OutputFile, []byte(output), 0644) // #nosec G306 - Documentation files should be readable
 		if err != nil {
 			return fmt.Errorf("failed to write output file: %w", err)
 		}

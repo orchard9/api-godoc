@@ -31,7 +31,7 @@ type parser struct {
 
 // ParseFile parses an OpenAPI spec from a file path
 func (p *parser) ParseFile(path string) (*OpenAPISpec, error) {
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(path) // #nosec G304 - CLI tool, user controls file path
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
@@ -41,7 +41,7 @@ func (p *parser) ParseFile(path string) (*OpenAPISpec, error) {
 
 // ParseURL parses an OpenAPI spec from a URL
 func (p *parser) ParseURL(url string) (*OpenAPISpec, error) {
-	resp, err := http.Get(url)
+	resp, err := http.Get(url) // #nosec G107 - CLI tool, user controls URL
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch URL: %w", err)
 	}
