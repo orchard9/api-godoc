@@ -44,6 +44,14 @@ Primary output format for developer consumption.
 Wire up command-line interface with input/output options.
 User-facing interface for the tool.
 
+### 11. Add JSON output format
+Implement structured JSON output for tooling integration.
+Enables programmatic consumption of analysis results.
+
+### 12. Create AI-optimized format
+Design condensed format optimized for LLM context windows.
+Bridges gap between API specs and AI understanding.
+
 ### Enhancement Features (Medium Priority)
 
 
@@ -57,6 +65,10 @@ User-facing interface for the tool.
 ### 19. Set up GitHub Actions CI
 Configure automated testing, linting, and builds.
 Ensures code quality and automated releases.
+
+### 20. Create example outputs through UAT
+Generate sample documentation for warden and forge APIs via UAT process.
+The UAT process should create example-output.md showing concrete sample outputs.
 
 ### 21. Implement UAT runner
 Create automated testing against example specifications in uat/artifacts/.
@@ -127,18 +139,6 @@ CLI supports file and URL inputs, multiple output formats (markdown, JSON, AI), 
 Successfully integrated all components: parser, converter, analyzer, relationship detector, and reporter.
 All UAT tests pass with real-world API specifications including warden and forge APIs.
 
-### 11. Add JSON output format ✓
-Implemented structured JSON output in reporter with full APIAnalysis marshaling.
-Generates machine-readable format with proper indentation for tooling integration.
-Includes all resources, operations, relationships, patterns, and statistics data.
-Accessible via -f json command-line flag for programmatic API documentation consumption.
-
-### 12. Create AI-optimized format ✓
-Designed and implemented condensed format optimized for LLM context windows.
-Summarizes key resources with operation counts and primary endpoints in compact format.
-Includes simplified relationship mappings and high-confidence patterns only.
-Output is ~80% smaller than full markdown while retaining essential API understanding.
-
 ### 13. Add Mermaid diagram generation ✓
 Created resource relationship diagrams using Mermaid graph syntax for visual API understanding.
 Diagrams show resources as nodes with relationships as labeled edges, using arrow styles to indicate strength.
@@ -180,9 +180,3 @@ Created comprehensive CI/CD pipeline with multi-platform testing (Linux, Windows
 Configured automated testing, linting, security scanning, and coverage reporting.
 Added ACT for local GitHub Actions testing with proper documentation and setup guides.
 Implemented automated release pipeline with cross-platform binary builds and dependency management.
-
-### 20. Create example outputs through UAT ✓
-Created comprehensive example-outputs.md showing real-world usage examples.
-Demonstrates all three output formats (markdown, JSON, AI-optimized) with actual API specifications.
-Includes filtering examples, schema reduction levels, and integration patterns.
-Shows performance metrics for large APIs (Stripe, GitHub) and provides CI/CD integration examples.

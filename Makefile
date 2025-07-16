@@ -110,11 +110,6 @@ uat: build
 	fi
 	@echo "UAT completed successfully"
 
-# Run comprehensive UAT tests
-.PHONY: uat-test
-uat-test:
-	@cd uat && go run runner.go
-
 # Development helpers
 dev-setup:
 	@echo "Setting up development environment..."
