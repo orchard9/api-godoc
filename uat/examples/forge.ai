@@ -1,233 +1,193 @@
 API: Forge Development System API v1.0.0 (OpenAPI 3.0.3)
-Stats: 64 resources, 156 operations, 83 endpoints
+Stats: 52 resources, 128 operations, 83 endpoints
 
 RESOURCES:
-- stats (1 ops) -> belongs_to:projects
-- confidence (1 ops) -> belongs_to:tasks, references:task
-- watch (1 ops)
-- pullRequests (3 ops)
-- history (1 ops) -> belongs_to:simulations
-- taskBranches (2 ops) -> references:task
-- documents:analyze (1 ops)
-- personas (1 ops)
-- :repair (1 ops)
-- analysis (1 ops) -> has_many:status, has_many:analysis, references:analysis, has_many:documents
-- hooks:postCheckout (1 ops)
-- questions (1 ops) -> belongs_to:projectTypes
-- :regenerateIndices (1 ops)
-- release (1 ops)
-- projects:scaffold (1 ops)
-- dependencyTree (1 ops) -> belongs_to:tasks, references:task
-- releaseBranches (2 ops)
-- :understand (1 ops)
-- regretFlags (1 ops) -> belongs_to:tasks, references:task
-- containers:validate (1 ops)
-- :resolveRegret (1 ops) -> references:task
-- understanding:analyze (1 ops) -> belongs_to:projects
-- features (6 ops) -> has_many:tasks
-- git (9 ops) -> references:task
-- containers (1 ops)
-- documents (1 ops) -> references:analysis
-- progress (1 ops) -> belongs_to:releases
-- containers:build (1 ops)
-- releases (2 ops) -> has_many:progress
-- results (3 ops) -> belongs_to:requirements, belongs_to:audits, belongs_to:research, references:research
-- :validateTransition (1 ops) -> references:task
-- activities:recent (1 ops)
-- hooks:postMerge (1 ops)
-- answers (1 ops) -> belongs_to:projects
-- projectTypes (2 ops) -> has_many:questions
-- metadata (2 ops)
-- dashboard (1 ops) -> belongs_to:projects
-- cycles (1 ops)
-- understanding (3 ops) -> belongs_to:projects
-- tasks (20 ops) -> has_many:blockers, has_many:blockedBy, has_many:regretFlags, has_many:dependencies, has_many:confidence, belongs_to:features, has_many:dependencyTree, has_many:dependencyGraph, references:task
-- agents (3 ops) -> has_many:context
-- :validate (1 ops)
-- context (2 ops) -> belongs_to:agents
-- process (3 ops) -> belongs_to:research, belongs_to:requirements, belongs_to:audits, references:research
-- dependencyGraph (1 ops) -> belongs_to:tasks, references:task
-- tasks:scaffold (1 ops)
-- blockedBy (1 ops) -> belongs_to:tasks, references:task
 - docker (5 ops)
-- tasks:batchGet (1 ops)
-- dependencies (3 ops) -> belongs_to:tasks, references:task
-- requirements (6 ops) -> belongs_to:projects, has_many:results, has_many:process, has_many:status
-- simulations (2 ops) -> has_many:history
-- info (1 ops)
-- :move (1 ops) -> references:task
-- containers:publish (1 ops)
-- task (1 ops) -> has_many:blockers, has_many::move, has_many:dependencyTree, has_many:dependencies, has_many:git, has_many::validateTransition, has_many:regretFlags, has_many::resolveRegret, has_many:taskBranches, has_many::flagRegret, has_many:tasks, has_many:confidence, has_many:dependencyGraph, has_many:blockedBy
-- tasks:pluckNext (1 ops)
-- audits (6 ops) -> has_many:results, belongs_to:projects, has_many:status, has_many:process
+- projectTypes (2 ops) -> has_many:questions
+- projects:scaffold (1 ops)
 - files (1 ops)
-- blockers (1 ops) -> belongs_to:tasks, references:task
-- :flagRegret (1 ops) -> references:task
-- projects (23 ops) -> has_many:understanding, has_many:requirements, has_many:understanding:analyze, has_many:stats, has_many:answers, has_many:audits, has_many:dashboard, has_many:research
-- research (6 ops) -> has_many:process, has_many:status, has_many:results, belongs_to:projects, has_many:results, has_many:process, has_many:research, references:research
+- personas (1 ops)
+- tasks (16 ops) -> has_many:dependencyTree, has_many:dependencies, has_many:blockedBy, has_many:confidence, has_many:regretFlags, belongs_to:features, has_many:dependencyGraph, has_many:blockers
+- projects (19 ops) -> has_many:stats, has_many:understanding, has_many:dashboard, has_many:requirements, has_many:research, has_many:audits, has_many:answers, has_many:understanding:analyze
+- research (6 ops) -> has_many:status, belongs_to:projects, has_many:results, has_many:process, has_many:process, has_many:results, has_many:research, references:research
+- features (6 ops) -> has_many:tasks
+- repair (1 ops)
+- questions (1 ops) -> belongs_to:projectTypes
+- regenerateIndices (1 ops)
+- releaseBranches (2 ops)
+- tasks:pluckNext (1 ops)
+- flagRegret (1 ops)
+- blockers (1 ops) -> belongs_to:tasks
+- understanding (3 ops) -> belongs_to:projects
+- dependencyTree (1 ops) -> belongs_to:tasks
+- pullRequests (3 ops)
+- confidence (1 ops) -> belongs_to:tasks
+- context (2 ops) -> belongs_to:agents
+- requirements (6 ops) -> has_many:status, belongs_to:projects, has_many:process, has_many:results
+- progress (1 ops) -> belongs_to:releases
+- resolveRegret (1 ops)
+- dashboard (1 ops) -> belongs_to:projects
+- simulations (2 ops) -> has_many:history
+- history (1 ops) -> belongs_to:simulations
+- validateTransition (1 ops)
+- regretFlags (1 ops) -> belongs_to:tasks
+- git (2 ops)
+- tasks:scaffold (1 ops)
+- documents:analyze (1 ops)
+- stats (1 ops) -> belongs_to:projects
+- dependencies (3 ops) -> belongs_to:tasks
+- tasks:batchGet (1 ops)
+- move (1 ops)
+- results (3 ops) -> belongs_to:research, belongs_to:requirements, belongs_to:audits, references:research
+- blockedBy (1 ops) -> belongs_to:tasks
+- watch (1 ops)
+- audits (6 ops) -> has_many:status, belongs_to:projects, has_many:process, has_many:results
+- taskBranches (2 ops)
+- releases (2 ops) -> has_many:progress
 - activities (1 ops)
+- understanding:analyze (1 ops) -> belongs_to:projects
+- process (3 ops) -> belongs_to:requirements, belongs_to:research, belongs_to:audits, references:research
+- analysis (1 ops) -> has_many:status, has_many:analysis, references:analysis
+- activities:recent (1 ops)
+- validate (1 ops)
+- answers (1 ops) -> belongs_to:projects
+- understand (1 ops)
+- dependencyGraph (1 ops) -> belongs_to:tasks
+- agents (3 ops) -> has_many:context
 
 KEY OPERATIONS:
-- GET /api/v1/projects/{projectId}/stats (GetProjectStats returns project-wide statistics and metrics)
-- PUT /api/v1/tasks/{taskId}/confidence (UpdateConfidenceScore updates a task's confidence score
-I...)
-- GET /api/v1/health/watch (Watch streams health status changes)
-- GET /api/v1/git/pullRequests/{branchName}
-- POST /api/v1/git/pullRequests/release
-- POST /api/v1/git/pullRequests/task (Pull request operations)
-- GET /api/v1/simulations/{simulationName}/history
-- GET /api/v1/git/taskBranches/{taskId}
-- POST /api/v1/git/taskBranches (Task branch operations)
-- POST /api/v1/documents:analyze (AnalyzeDocuments processes submitted documents using AI t...)
-- GET /api/v1/personas (ListPersonas retrieves all available personas in the system)
-- POST /api/v1/projects/{projectId}:repair (RepairProjectStructure repairs missing directories and fi...)
-- GET /api/v1/documents/analysis/{analysisId}/status (GetAnalysisStatus retrieves the status of a previously su...)
-- POST /api/v1/git/hooks:postCheckout
-- GET /api/v1/projectTypes/{projectType}/questions (GetProjectQuestions returns questions based on project type)
-- POST /api/v1/projects/{projectId}:regenerateIndices (RegenerateIndices rebuilds all index files)
-- POST /api/v1/git/pullRequests/release
-- POST /api/v1/projects:scaffold (ScaffoldProject creates a new project with the initial di...)
-- GET /api/v1/tasks/{taskId}/dependencyTree (GetDependencyTree builds a hierarchical tree view of task...)
-- POST /api/v1/git/releaseBranches (Release branch operations)
-- GET /api/v1/git/releaseBranches/{version}
-- POST /api/v1/projects/{projectId}:understand (UnderstandProject analyzes a project and provides streami...)
-- GET /api/v1/tasks/{taskId}/regretFlags (GetTaskRegretFlags retrieves all regret flags for a task
-...)
-- POST /api/v1/docker/containers:validate
-- POST /api/v1/tasks/{taskId}:resolveRegret (ResolveTaskRegret resolves a task's implementation regret...)
-- POST /api/v1/projects/{projectId}/understanding:analyze (Analyze project files to create AI-powered summaries with...)
-- GET /api/v1/features (ListFeatures retrieves features with optional filtering)
-- POST /api/v1/features (CreateFeature creates a new feature group)
-- GET /api/v1/features/{featureId}/tasks (GetFeatureTasks retrieves all tasks associated with a fea...)
-- GET /api/v1/features/{id} (GetFeature retrieves a specific feature by ID)
-- PUT /api/v1/features/{id} (UpdateFeature updates an existing feature)
-- DELETE /api/v1/features/{id} (DeleteFeature removes a feature (administrative use only))
-- GET /api/v1/git/pullRequests/{branchName}
-- POST /api/v1/git/pullRequests/release
-- GET /api/v1/git/taskBranches/{taskId}
-- POST /api/v1/git/hooks:postMerge (Hook integration)
-- POST /api/v1/git/hooks:postCheckout
-- POST /api/v1/git/releaseBranches (Release branch operations)
-- GET /api/v1/git/releaseBranches/{version}
-- POST /api/v1/git/taskBranches (Task branch operations)
-- POST /api/v1/git/pullRequests/task (Pull request operations)
-- GET /api/v1/docker/containers
-- GET /api/v1/documents/analysis/{analysisId}/status (GetAnalysisStatus retrieves the status of a previously su...)
-- GET /api/v1/releases/{version}/progress
+- POST /api/v1/docker/containers:publish
+- GET /api/v1/docker/status (Docker protocol methods)
 - POST /api/v1/docker/containers:build
-- GET /api/v1/releases/{version}/progress
-- GET /api/v1/releases (Release management methods)
-- POST /api/v1/requirements/{requirementId}/results (SubmitRequirementResults submits requirement deliverables...)
-- POST /api/v1/audits/{auditId}/results (SubmitAuditResults submits audit deliverables and transit...)
-- POST /api/v1/research/{researchId}/results (SubmitResearchResults submits research deliverables and t...)
-- POST /api/v1/tasks/{taskId}:validateTransition (ValidateTaskTransition checks if a state transition is va...)
-- GET /api/v1/activities:recent (GetRecentActivities retrieves the most recent activities ...)
-- POST /api/v1/git/hooks:postMerge (Hook integration)
-- POST /api/v1/projects/{projectId}/answers (StoreProjectAnswers stores question answers for a project)
+- POST /api/v1/docker/containers:validate
+- GET /api/v1/docker/containers
 - GET /api/v1/projectTypes/{projectType}/questions (GetProjectQuestions returns questions based on project type)
 - GET /api/v1/projectTypes (GetProjectTypes returns supported project types and langu...)
-- GET /api/v1/projects/metadata (GetProjectMetadata retrieves project metadata)
-- PUT /api/v1/projects/metadata (UpdateProjectMetadata initializes or updates project meta...)
-- GET /api/v1/projects/{projectId}/dashboard (GetDashboardData returns all data needed for the dashboar...)
-- GET /api/v1/tasks/cycles (DetectCycles finds all dependency cycles in the current t...)
-- GET /api/v1/projects/{projectId}/understanding (List all file understandings for a project)
-- GET /api/v1/projects/{projectId}/understanding/status (Get current understanding status for a project)
+- POST /api/v1/projects:scaffold (ScaffoldProject creates a new project with the initial di...)
 - GET /api/v1/projects/{projectId}/understanding/files (Get understanding for a specific file)
-- GET /api/v1/tasks/{taskId}/regretFlags (GetTaskRegretFlags retrieves all regret flags for a task
-...)
-- GET /api/v1/tasks/{taskId}/dependencies (GetDependencies retrieves all dependencies for a specific...)
-- POST /api/v1/tasks/{taskId}/dependencies (AddDependency adds a dependency relationship between task...)
+- GET /api/v1/personas (ListPersonas retrieves all available personas in the system)
+- GET /api/v1/tasks/{taskId}/dependencyGraph (GetTaskDependencies retrieves detailed dependency informa...)
+- GET /api/v1/tasks/{taskId}/blockers (GetBlockers retrieves tasks that are blocking a specific ...)
+- GET /api/v1/tasks/cycles (DetectCycles finds all dependency cycles in the current t...)
+- GET /api/v1/tasks/{taskId}/dependencyTree (GetDependencyTree builds a hierarchical tree view of task...)
 - DELETE /api/v1/tasks/{taskId}/dependencies/{dependencyId} (RemoveDependency removes a dependency relationship betwee...)
-- PUT /api/v1/tasks/{task.id} (UpdateTask updates a task's content
-Modifies task fields ...)
+- GET /api/v1/tasks/{taskId}/blockedBy (GetBlockedBy retrieves tasks that are blocked by a specif...)
 - PUT /api/v1/tasks/{taskId}/confidence (UpdateConfidenceScore updates a task's confidence score
 I...)
-- GET /api/v1/features/{featureId}/tasks (GetFeatureTasks retrieves all tasks associated with a fea...)
-- GET /api/v1/tasks/{taskId}/dependencyTree (GetDependencyTree builds a hierarchical tree view of task...)
-- POST /api/v1/tasks/{taskId}:move (MoveTask changes a task's status (e.g., from todo to in-p...)
-- POST /api/v1/tasks/{taskId}:validateTransition (ValidateTaskTransition checks if a state transition is va...)
-- GET /api/v1/tasks/{taskId}/dependencyGraph (GetTaskDependencies retrieves detailed dependency informa...)
-- POST /api/v1/tasks/{taskId}:resolveRegret (ResolveTaskRegret resolves a task's implementation regret...)
-- GET /api/v1/tasks/{taskId}/blockers (GetBlockers retrieves tasks that are blocking a specific ...)
+- PUT /api/v1/tasks/{task.id} (UpdateTask updates a task's content
+Modifies task fields ...)
 - GET /api/v1/tasks/{taskId} (Get task by ID)
 - DELETE /api/v1/tasks/{taskId} (DeleteTask removes a task (rarely used, primarily for adm...)
-- GET /api/v1/tasks/cycles (DetectCycles finds all dependency cycles in the current t...)
 - GET /api/v1/tasks (List tasks)
 - POST /api/v1/tasks (CreateTask creates a fully specified task
 Allows creating...)
-- GET /api/v1/tasks/{taskId}/blockedBy (GetBlockedBy retrieves tasks that are blocked by a specif...)
-- POST /api/v1/tasks/{taskId}:flagRegret (FlagTaskWithRegret flags a task with an implementation re...)
-- GET /api/v1/agents/{persona}/context (GetAgentContext retrieves the context for a specific agen...)
-- PUT /api/v1/agents/{persona}/context (UpdateAgentContext updates the context for a specific age...)
-- GET /api/v1/agents (ListAgents retrieves all available agents with their work...)
-- GET /api/v1/projects/{projectId}:validate (ValidateProjectStructure checks if the project structure ...)
-- GET /api/v1/agents/{persona}/context (GetAgentContext retrieves the context for a specific agen...)
-- PUT /api/v1/agents/{persona}/context (UpdateAgentContext updates the context for a specific age...)
-- POST /api/v1/requirements/{requirementId}/process (ProcessRequirementResults processes completed requirement...)
-- POST /api/v1/audits/{auditId}/process (ProcessAuditResults processes completed audit results and...)
-- POST /api/v1/research/{researchId}/process (ProcessResearchResults processes completed research results)
-- GET /api/v1/tasks/{taskId}/dependencyGraph (GetTaskDependencies retrieves detailed dependency informa...)
-- POST /api/v1/tasks:scaffold (Create a task from template)
-- GET /api/v1/tasks/{taskId}/blockedBy (GetBlockedBy retrieves tasks that are blocked by a specif...)
-- GET /api/v1/docker/status (Docker protocol methods)
-- POST /api/v1/docker/containers:validate
-- POST /api/v1/docker/containers:publish
-- POST /api/v1/docker/containers:build
-- GET /api/v1/docker/containers
-- POST /api/v1/tasks:batchGet (BatchGetTasks retrieves multiple tasks in a single reques...)
+- GET /api/v1/tasks/{taskId}/regretFlags (GetTaskRegretFlags retrieves all regret flags for a task
+...)
 - GET /api/v1/tasks/{taskId}/dependencies (GetDependencies retrieves all dependencies for a specific...)
 - POST /api/v1/tasks/{taskId}/dependencies (AddDependency adds a dependency relationship between task...)
-- DELETE /api/v1/tasks/{taskId}/dependencies/{dependencyId} (RemoveDependency removes a dependency relationship betwee...)
-- POST /api/v1/requirements/{requirementId}/results (SubmitRequirementResults submits requirement deliverables...)
-- GET /api/v1/requirements/{requirementId} (GetRequirementRequest retrieves a specific requirement re...)
-- POST /api/v1/requirements/{requirementId}/process (ProcessRequirementResults processes completed requirement...)
+- GET /api/v1/features/{featureId}/tasks (GetFeatureTasks retrieves all tasks associated with a fea...)
+- GET /api/v1/projects/{projectId}/stats (GetProjectStats returns project-wide statistics and metrics)
+- GET /api/v1/projects/{projectId}/understanding (List all file understandings for a project)
+- PUT /api/v1/projects/{project.id} (UpdateProject updates project information)
+- GET /api/v1/projects (ListProjects returns a paginated list of all projects)
+- GET /api/v1/projects/{projectId}/dashboard (GetDashboardData returns all data needed for the dashboar...)
+- GET /api/v1/projects/{projectId}/understanding/status (Get current understanding status for a project)
+- PUT /api/v1/projects/info (UpdateProjectInfo updates only mutable fields (name and d...)
+- GET /api/v1/projects/{projectId}/requirements (ListRequirements returns a list of requirement requests w...)
+- POST /api/v1/projects/{projectId}/requirements (CreateRequirementRequest creates a new requirement reques...)
+- GET /api/v1/projects/{projectId}/research (ListResearch returns a list of research requests with fil...)
+- POST /api/v1/projects/{projectId}/research (CreateResearchRequest creates a new research request for ...)
+- GET /api/v1/projects/{projectId}/audits (ListAudits returns a list of audit requests with filterin...)
+- POST /api/v1/projects/{projectId}/audits (CreateAuditRequest creates a new audit request for a project)
+- GET /api/v1/projects/{projectId} (GetProject retrieves project information)
+- POST /api/v1/projects/{projectId}/answers (StoreProjectAnswers stores question answers for a project)
+- GET /api/v1/projects/metadata (GetProjectMetadata retrieves project metadata)
+- PUT /api/v1/projects/metadata (UpdateProjectMetadata initializes or updates project meta...)
+- GET /api/v1/projects/{projectId}/understanding/files (Get understanding for a specific file)
+- POST /api/v1/projects/{projectId}/understanding:analyze (Analyze project files to create AI-powered summaries with...)
+- PUT /api/v1/research/{researchId}/status (UpdateResearchStatus updates the status of a research req...)
+- GET /api/v1/projects/{projectId}/research (ListResearch returns a list of research requests with fil...)
+- POST /api/v1/projects/{projectId}/research (CreateResearchRequest creates a new research request for ...)
+- POST /api/v1/research/{researchId}/results (SubmitResearchResults submits research deliverables and t...)
+- POST /api/v1/research/{researchId}/process (ProcessResearchResults processes completed research results)
+- GET /api/v1/research/{researchId} (GetResearchRequest retrieves a specific research request)
+- GET /api/v1/features/{id} (GetFeature retrieves a specific feature by ID)
+- PUT /api/v1/features/{id} (UpdateFeature updates an existing feature)
+- DELETE /api/v1/features/{id} (DeleteFeature removes a feature (administrative use only))
+- GET /api/v1/features (ListFeatures retrieves features with optional filtering)
+- POST /api/v1/features (CreateFeature creates a new feature group)
+- GET /api/v1/features/{featureId}/tasks (GetFeatureTasks retrieves all tasks associated with a fea...)
+- POST /api/v1/projects/{projectId}:repair (RepairProjectStructure repairs missing directories and fi...)
+- GET /api/v1/projectTypes/{projectType}/questions (GetProjectQuestions returns questions based on project type)
+- POST /api/v1/projects/{projectId}:regenerateIndices (RegenerateIndices rebuilds all index files)
+- POST /api/v1/git/releaseBranches (Release branch operations)
+- GET /api/v1/git/releaseBranches/{version}
+- POST /api/v1/tasks:pluckNext (PluckNextTask finds the best next task to work on
+Uses th...)
+- POST /api/v1/tasks/{taskId}:flagRegret (FlagTaskWithRegret flags a task with an implementation re...)
+- GET /api/v1/tasks/{taskId}/blockers (GetBlockers retrieves tasks that are blocking a specific ...)
+- GET /api/v1/projects/{projectId}/understanding (List all file understandings for a project)
+- GET /api/v1/projects/{projectId}/understanding/status (Get current understanding status for a project)
+- GET /api/v1/projects/{projectId}/understanding/files (Get understanding for a specific file)
+- GET /api/v1/tasks/{taskId}/dependencyTree (GetDependencyTree builds a hierarchical tree view of task...)
+- GET /api/v1/git/pullRequests/{branchName}
+- POST /api/v1/git/pullRequests/task (Pull request operations)
+- POST /api/v1/git/pullRequests/release
+- PUT /api/v1/tasks/{taskId}/confidence (UpdateConfidenceScore updates a task's confidence score
+I...)
+- GET /api/v1/agents/{persona}/context (GetAgentContext retrieves the context for a specific agen...)
+- PUT /api/v1/agents/{persona}/context (UpdateAgentContext updates the context for a specific age...)
 - PUT /api/v1/requirements/{requirementId}/status (UpdateRequirementStatus updates the status of a requireme...)
 - GET /api/v1/projects/{projectId}/requirements (ListRequirements returns a list of requirement requests w...)
 - POST /api/v1/projects/{projectId}/requirements (CreateRequirementRequest creates a new requirement reques...)
-- GET /api/v1/simulations/{simulationName}/history
+- GET /api/v1/requirements/{requirementId} (GetRequirementRequest retrieves a specific requirement re...)
+- POST /api/v1/requirements/{requirementId}/process (ProcessRequirementResults processes completed requirement...)
+- POST /api/v1/requirements/{requirementId}/results (SubmitRequirementResults submits requirement deliverables...)
+- GET /api/v1/releases/{version}/progress
+- POST /api/v1/tasks/{taskId}:resolveRegret (ResolveTaskRegret resolves a task's implementation regret...)
+- GET /api/v1/projects/{projectId}/dashboard (GetDashboardData returns all data needed for the dashboar...)
 - GET /api/v1/simulations (Simulation management methods)
-- PUT /api/v1/projects/info (UpdateProjectInfo updates only mutable fields (name and d...)
+- GET /api/v1/simulations/{simulationName}/history
+- GET /api/v1/simulations/{simulationName}/history
+- POST /api/v1/tasks/{taskId}:validateTransition (ValidateTaskTransition checks if a state transition is va...)
+- GET /api/v1/tasks/{taskId}/regretFlags (GetTaskRegretFlags retrieves all regret flags for a task
+...)
+- POST /api/v1/git/hooks:postMerge (Hook integration)
+- POST /api/v1/git/hooks:postCheckout
+- POST /api/v1/tasks:scaffold (Create a task from template)
+- POST /api/v1/documents:analyze (AnalyzeDocuments processes submitted documents using AI t...)
+- GET /api/v1/projects/{projectId}/stats (GetProjectStats returns project-wide statistics and metrics)
+- DELETE /api/v1/tasks/{taskId}/dependencies/{dependencyId} (RemoveDependency removes a dependency relationship betwee...)
+- GET /api/v1/tasks/{taskId}/dependencies (GetDependencies retrieves all dependencies for a specific...)
+- POST /api/v1/tasks/{taskId}/dependencies (AddDependency adds a dependency relationship between task...)
+- POST /api/v1/tasks:batchGet (BatchGetTasks retrieves multiple tasks in a single reques...)
 - POST /api/v1/tasks/{taskId}:move (MoveTask changes a task's status (e.g., from todo to in-p...)
-- POST /api/v1/docker/containers:publish
-- POST /api/v1/git/pullRequests/task (Pull request operations)
-- POST /api/v1/tasks:pluckNext (PluckNextTask finds the best next task to work on
-Uses th...)
+- POST /api/v1/research/{researchId}/results (SubmitResearchResults submits research deliverables and t...)
+- POST /api/v1/requirements/{requirementId}/results (SubmitRequirementResults submits requirement deliverables...)
 - POST /api/v1/audits/{auditId}/results (SubmitAuditResults submits audit deliverables and transit...)
+- GET /api/v1/tasks/{taskId}/blockedBy (GetBlockedBy retrieves tasks that are blocked by a specif...)
+- GET /api/v1/health/watch (Watch streams health status changes)
+- PUT /api/v1/audits/{auditId}/status (UpdateAuditStatus updates the status of an audit request)
 - GET /api/v1/projects/{projectId}/audits (ListAudits returns a list of audit requests with filterin...)
 - POST /api/v1/projects/{projectId}/audits (CreateAuditRequest creates a new audit request for a project)
-- PUT /api/v1/audits/{auditId}/status (UpdateAuditStatus updates the status of an audit request)
 - POST /api/v1/audits/{auditId}/process (ProcessAuditResults processes completed audit results and...)
 - GET /api/v1/audits/{auditId} (GetAuditRequest retrieves a specific audit request)
-- GET /api/v1/projects/{projectId}/understanding/files (Get understanding for a specific file)
-- GET /api/v1/tasks/{taskId}/blockers (GetBlockers retrieves tasks that are blocking a specific ...)
-- POST /api/v1/tasks/{taskId}:flagRegret (FlagTaskWithRegret flags a task with an implementation re...)
-- GET /api/v1/projects/{projectId}/understanding (List all file understandings for a project)
-- POST /api/v1/projects/{projectId}/understanding:analyze (Analyze project files to create AI-powered summaries with...)
-- POST /api/v1/projects/{projectId}:regenerateIndices (RegenerateIndices rebuilds all index files)
-- GET /api/v1/projects/{projectId}/stats (GetProjectStats returns project-wide statistics and metrics)
-- POST /api/v1/projects/{projectId}/answers (StoreProjectAnswers stores question answers for a project)
-- GET /api/v1/projects/{projectId}/understanding/status (Get current understanding status for a project)
-- GET /api/v1/projects/{projectId}/audits (ListAudits returns a list of audit requests with filterin...)
-- POST /api/v1/projects/{projectId}/audits (CreateAuditRequest creates a new audit request for a project)
-- GET /api/v1/projects/metadata (GetProjectMetadata retrieves project metadata)
-- PUT /api/v1/projects/metadata (UpdateProjectMetadata initializes or updates project meta...)
-- PUT /api/v1/projects/info (UpdateProjectInfo updates only mutable fields (name and d...)
-- GET /api/v1/projects/{projectId} (GetProject retrieves project information)
-- GET /api/v1/projects/{projectId}/dashboard (GetDashboardData returns all data needed for the dashboar...)
-- GET /api/v1/projects/{projectId}/research (ListResearch returns a list of research requests with fil...)
-- POST /api/v1/projects/{projectId}/research (CreateResearchRequest creates a new research request for ...)
-- PUT /api/v1/projects/{project.id} (UpdateProject updates project information)
-- GET /api/v1/projects/{projectId}/understanding/files (Get understanding for a specific file)
-- GET /api/v1/projects/{projectId}/requirements (ListRequirements returns a list of requirement requests w...)
-- POST /api/v1/projects/{projectId}/requirements (CreateRequirementRequest creates a new requirement reques...)
-- POST /api/v1/projects/{projectId}:repair (RepairProjectStructure repairs missing directories and fi...)
-- POST /api/v1/projects/{projectId}:understand (UnderstandProject analyzes a project and provides streami...)
-- GET /api/v1/projects (ListProjects returns a paginated list of all projects)
-- GET /api/v1/projects/{projectId}:validate (ValidateProjectStructure checks if the project structure ...)
-- PUT /api/v1/research/{researchId}/status (UpdateResearchStatus updates the status of a research req...)
-- GET /api/v1/research/{researchId} (GetResearchRequest retrieves a specific research request)
-- POST /api/v1/research/{researchId}/results (SubmitResearchResults submits research deliverables and t...)
-- GET /api/v1/projects/{projectId}/research (ListResearch returns a list of research requests with fil...)
-- POST /api/v1/projects/{projectId}/research (CreateResearchRequest creates a new research request for ...)
-- POST /api/v1/research/{researchId}/process (ProcessResearchResults processes completed research results)
+- POST /api/v1/audits/{auditId}/results (SubmitAuditResults submits audit deliverables and transit...)
+- POST /api/v1/git/taskBranches (Task branch operations)
+- GET /api/v1/git/taskBranches/{taskId}
+- GET /api/v1/releases (Release management methods)
+- GET /api/v1/releases/{version}/progress
 - GET /api/v1/activities (ListActivities retrieves activities based on filter criteria)
+- POST /api/v1/projects/{projectId}/understanding:analyze (Analyze project files to create AI-powered summaries with...)
+- POST /api/v1/requirements/{requirementId}/process (ProcessRequirementResults processes completed requirement...)
+- POST /api/v1/research/{researchId}/process (ProcessResearchResults processes completed research results)
+- POST /api/v1/audits/{auditId}/process (ProcessAuditResults processes completed audit results and...)
+- GET /api/v1/documents/analysis/{analysisId}/status (GetAnalysisStatus retrieves the status of a previously su...)
+- GET /api/v1/activities:recent (GetRecentActivities retrieves the most recent activities ...)
+- GET /api/v1/projects/{projectId}:validate (ValidateProjectStructure checks if the project structure ...)
+- POST /api/v1/projects/{projectId}/answers (StoreProjectAnswers stores question answers for a project)
+- POST /api/v1/projects/{projectId}:understand (UnderstandProject analyzes a project and provides streami...)
+- GET /api/v1/tasks/{taskId}/dependencyGraph (GetTaskDependencies retrieves detailed dependency informa...)
+- GET /api/v1/agents (ListAgents retrieves all available agents with their work...)
+- GET /api/v1/agents/{persona}/context (GetAgentContext retrieves the context for a specific agen...)
+- PUT /api/v1/agents/{persona}/context (UpdateAgentContext updates the context for a specific age...)
