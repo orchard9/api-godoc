@@ -4,6 +4,8 @@ Automatically generate resource-centric documentation from OpenAPI specification
 
 *This is an AI-written project, built with modern software engineering practices.*
 
+[![CI](https://github.com/orchard9/api-godoc/actions/workflows/ci.yml/badge.svg)](https://github.com/orchard9/api-godoc/actions/workflows/ci.yml)
+
 ## Current Status
 
 🚧 **Pre-Alpha Development** - This project is in early development. Core functionality is being implemented.
