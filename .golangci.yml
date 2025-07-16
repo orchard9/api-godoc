@@ -19,11 +19,11 @@ linters-settings:
   gocyclo:
     min-complexity: 15
   goimports:
-    local-prefixes: github.com/orchard9/pg-goapi
+    local-prefixes: github.com/orchard9/api-godoc
   golint:
     min-confidence: 0
   govet:
-    check-shadowing: true
+    shadow: true
   misspell:
     locale: US
   nolintlint:
