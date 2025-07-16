@@ -5,341 +5,63 @@
   "baseUrl": "http://localhost:50052/api/v1",
   "resources": [
     {
-      "name": "blockers",
-      "description": "Blockers resource operations",
+      "name": "taskBranches",
+      "description": "TaskBranches resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/git/taskBranches",
+          "summary": "Task branch operations",
+          "operationId": "GitService_CreateTaskBranch",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/git/taskBranches/{taskId}",
+          "operationId": "GitService_GetTaskBranch",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "releases",
+      "description": "Releases resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/blockers",
-          "summary": "GetBlockers retrieves tasks that are blocking a specific task\nUseful for understanding what's preventing a task from being worked on",
-          "operationId": "TaskService_GetBlockers",
+          "path": "/api/v1/releases/{version}/progress",
+          "operationId": "ReleaseService_GetReleaseProgress",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/releases",
+          "summary": "Release management methods",
+          "operationId": "ReleaseService_ListReleases",
           "isResourceOp": false
         }
       ],
       "relationships": [
         {
-          "resource": "tasks",
-          "type": "belongs_to",
+          "resource": "progress",
+          "type": "has_many",
           "via": "path hierarchy",
-          "description": "blockers belongs to a tasks resource",
+          "description": "releases contains multiple progress resources",
           "strength": "strong"
         }
       ],
       "isCollection": false
     },
     {
-      "name": "validateTransition",
-      "description": "ValidateTransition resource operations",
+      "name": "dashboard",
+      "description": "Dashboard resource operations",
       "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks/{taskId}:validateTransition",
-          "summary": "ValidateTaskTransition checks if a state transition is valid without performing it\nUseful for client-side validation before attempting a transition",
-          "operationId": "TaskService_ValidateTaskTransition",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "context",
-      "description": "Context resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/agents/{persona}/context",
-          "summary": "GetAgentContext retrieves the context for a specific agent persona",
-          "operationId": "AgentService_GetAgentContext",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/agents/{persona}/context",
-          "summary": "UpdateAgentContext updates the context for a specific agent persona",
-          "operationId": "AgentService_UpdateAgentContext",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "agents",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "context belongs to a agents resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "regenerateIndices",
-      "description": "RegenerateIndices resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}:regenerateIndices",
-          "summary": "RegenerateIndices rebuilds all index files",
-          "operationId": "ProjectService_RegenerateIndices",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "move",
-      "description": "Move resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks/{taskId}:move",
-          "summary": "MoveTask changes a task's status (e.g., from todo to in-progress)\nEnforces workflow transition rules and updates the task's position",
-          "operationId": "TaskService_MoveTask",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "releaseBranches",
-      "description": "ReleaseBranches resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/git/releaseBranches",
-          "summary": "Release branch operations",
-          "operationId": "GitService_CreateReleaseBranch",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/git/releaseBranches/{version}",
-          "operationId": "GitService_GetReleaseBranch",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "projects",
-      "description": "Projects resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding/files",
-          "summary": "Get understanding for a specific file",
-          "operationId": "FileUnderstandingService_GetFileUnderstanding",
-          "isResourceOp": false
-        },
         {
           "method": "GET",
           "path": "/api/v1/projects/{projectId}/dashboard",
           "summary": "GetDashboardData returns all data needed for the dashboard in a single request",
           "operationId": "DashboardService_GetDashboardData",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/projects/info",
-          "summary": "UpdateProjectInfo updates only mutable fields (name and description)",
-          "operationId": "ProjectService_UpdateProjectInfo",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/research",
-          "summary": "ListResearch returns a list of research requests with filtering support",
-          "operationId": "ProjectService_ListResearch",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/research",
-          "summary": "CreateResearchRequest creates a new research request for a project",
-          "operationId": "ProjectService_CreateResearchRequest",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/metadata",
-          "summary": "GetProjectMetadata retrieves project metadata",
-          "operationId": "ProjectService_GetProjectMetadata",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/projects/metadata",
-          "summary": "UpdateProjectMetadata initializes or updates project metadata",
-          "operationId": "ProjectService_UpdateProjectMetadata",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/answers",
-          "summary": "StoreProjectAnswers stores question answers for a project",
-          "operationId": "ProjectService_StoreProjectAnswers",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding",
-          "summary": "List all file understandings for a project",
-          "operationId": "FileUnderstandingService_ListProjectUnderstanding",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}",
-          "summary": "GetProject retrieves project information",
-          "operationId": "ProjectService_GetProject",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects",
-          "summary": "ListProjects returns a paginated list of all projects",
-          "operationId": "ProjectService_ListProjects",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/requirements",
-          "summary": "ListRequirements returns a list of requirement requests with filtering support",
-          "operationId": "ProjectService_ListRequirements",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/requirements",
-          "summary": "CreateRequirementRequest creates a new requirement request for a project",
-          "operationId": "ProjectService_CreateRequirementRequest",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/projects/{project.id}",
-          "summary": "UpdateProject updates project information",
-          "operationId": "ProjectService_UpdateProject",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/stats",
-          "summary": "GetProjectStats returns project-wide statistics and metrics",
-          "operationId": "ProjectService_GetProjectStats",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/understanding:analyze",
-          "summary": "Analyze project files to create AI-powered summaries with streaming progress",
-          "operationId": "FileUnderstandingService_AnalyzeProjectFiles",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/audits",
-          "summary": "ListAudits returns a list of audit requests with filtering support",
-          "operationId": "ProjectService_ListAudits",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/audits",
-          "summary": "CreateAuditRequest creates a new audit request for a project",
-          "operationId": "ProjectService_CreateAuditRequest",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding/status",
-          "summary": "Get current understanding status for a project",
-          "operationId": "FileUnderstandingService_GetUnderstandingStatus",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "research",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple research resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "answers",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple answers resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "understanding",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple understanding resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "requirements",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple requirements resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "stats",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple stats resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "understanding:analyze",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple understanding:analyze resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "audits",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple audits resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "dashboard",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "projects contains multiple dashboard resources",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "understanding",
-      "description": "Understanding resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding/files",
-          "summary": "Get understanding for a specific file",
-          "operationId": "FileUnderstandingService_GetFileUnderstanding",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding",
-          "summary": "List all file understandings for a project",
-          "operationId": "FileUnderstandingService_ListProjectUnderstanding",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding/status",
-          "summary": "Get current understanding status for a project",
-          "operationId": "FileUnderstandingService_GetUnderstandingStatus",
           "isResourceOp": false
         }
       ],
@@ -348,322 +70,8 @@
           "resource": "projects",
           "type": "belongs_to",
           "via": "path hierarchy",
-          "description": "understanding belongs to a projects resource",
+          "description": "dashboard belongs to a projects resource",
           "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "tasks:batchGet",
-      "description": "Tasks:batchGet resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks:batchGet",
-          "summary": "BatchGetTasks retrieves multiple tasks in a single request\nAccepts up to 100 task IDs and returns tasks in the same order",
-          "operationId": "TaskService_BatchGetTasks",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "agents",
-      "description": "Agents resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/agents",
-          "summary": "ListAgents retrieves all available agents with their workload information",
-          "operationId": "AgentService_ListAgents",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/agents/{persona}/context",
-          "summary": "GetAgentContext retrieves the context for a specific agent persona",
-          "operationId": "AgentService_GetAgentContext",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/agents/{persona}/context",
-          "summary": "UpdateAgentContext updates the context for a specific agent persona",
-          "operationId": "AgentService_UpdateAgentContext",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "context",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "agents contains multiple context resources",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "git",
-      "description": "Git resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/git/hooks:postMerge",
-          "summary": "Hook integration",
-          "operationId": "GitService_HandlePostMergeHook",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/git/hooks:postCheckout",
-          "operationId": "GitService_HandlePostCheckoutHook",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "history",
-      "description": "History resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/simulations/{simulationName}/history",
-          "operationId": "ReleaseService_GetSimulationHistory",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "simulations",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "history belongs to a simulations resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "files",
-      "description": "Files resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/projects/{projectId}/understanding/files",
-          "summary": "Get understanding for a specific file",
-          "operationId": "FileUnderstandingService_GetFileUnderstanding",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "tasks",
-      "description": "Tasks resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/blockers",
-          "summary": "GetBlockers retrieves tasks that are blocking a specific task\nUseful for understanding what's preventing a task from being worked on",
-          "operationId": "TaskService_GetBlockers",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}",
-          "summary": "Get task by ID",
-          "description": "Retrieves a specific task by its ID, including all details and activity log",
-          "operationId": "getTask",
-          "isResourceOp": false
-        },
-        {
-          "method": "DELETE",
-          "path": "/api/v1/tasks/{taskId}",
-          "summary": "DeleteTask removes a task (rarely used, primarily for administrative purposes)\nTasks that are no longer needed should typically be moved to 'completed' status instead",
-          "operationId": "TaskService_DeleteTask",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencyGraph",
-          "summary": "GetTaskDependencies retrieves detailed dependency information for graph visualization\nReturns both dependencies and dependents with full task details",
-          "operationId": "TaskService_GetTaskDependencies",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/features/{featureId}/tasks",
-          "summary": "GetFeatureTasks retrieves all tasks associated with a feature",
-          "operationId": "FeatureService_GetFeatureTasks",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencyTree",
-          "summary": "GetDependencyTree builds a hierarchical tree view of task dependencies\nSupports both top-down and bottom-up traversal with depth limiting",
-          "operationId": "TaskService_GetDependencyTree",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/regretFlags",
-          "summary": "GetTaskRegretFlags retrieves all regret flags for a task\nReturns the complete history of implementation regrets",
-          "operationId": "TaskService_GetTaskRegretFlags",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks",
-          "summary": "List tasks",
-          "description": "Retrieve a paginated list of tasks with optional filtering by status, persona, version, and confidence score",
-          "operationId": "listTasks",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks",
-          "summary": "CreateTask creates a fully specified task\nAllows creating a task with all fields explicitly defined",
-          "operationId": "TaskService_CreateTask",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/blockedBy",
-          "summary": "GetBlockedBy retrieves tasks that are blocked by a specific task\nUseful for understanding the impact of completing a task",
-          "operationId": "TaskService_GetBlockedBy",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencies",
-          "summary": "GetDependencies retrieves all dependencies for a specific task",
-          "operationId": "TaskService_GetDependencies",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks/{taskId}/dependencies",
-          "summary": "AddDependency adds a dependency relationship between tasks\nChecks for circular dependencies and updates task relationships",
-          "operationId": "TaskService_AddDependency",
-          "isResourceOp": false
-        },
-        {
-          "method": "DELETE",
-          "path": "/api/v1/tasks/{taskId}/dependencies/{dependencyId}",
-          "summary": "RemoveDependency removes a dependency relationship between tasks",
-          "operationId": "TaskService_RemoveDependency",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/tasks/{task.id}",
-          "summary": "UpdateTask updates a task's content\nModifies task fields but doesn't change status",
-          "operationId": "TaskService_UpdateTask",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/tasks/{taskId}/confidence",
-          "summary": "UpdateConfidenceScore updates a task's confidence score\nIncludes rationale for the score in specific categories",
-          "operationId": "TaskService_UpdateConfidenceScore",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/cycles",
-          "summary": "DetectCycles finds all dependency cycles in the current task graph\nReturns detailed information about each cycle found",
-          "operationId": "TaskService_DetectCycles",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "blockers",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple blockers resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "dependencyGraph",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple dependencyGraph resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "features",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "tasks belongs to a features resource",
-          "strength": "strong"
-        },
-        {
-          "resource": "dependencyTree",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple dependencyTree resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "regretFlags",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple regretFlags resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "blockedBy",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple blockedBy resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "dependencies",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple dependencies resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "confidence",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "tasks contains multiple confidence resources",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "repair",
-      "description": "Repair resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}:repair",
-          "summary": "RepairProjectStructure repairs missing directories and files in the project structure",
-          "operationId": "ProjectService_RepairProjectStructure",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "activities",
-      "description": "Activities resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/activities",
-          "summary": "ListActivities retrieves activities based on filter criteria",
-          "operationId": "ActivityService_ListActivities",
-          "isResourceOp": false
         }
       ],
       "isCollection": false
@@ -673,10 +81,10 @@
       "description": "Requirements resource operations",
       "operations": [
         {
-          "method": "PUT",
-          "path": "/api/v1/requirements/{requirementId}/status",
-          "summary": "UpdateRequirementStatus updates the status of a requirement request",
-          "operationId": "ProjectService_UpdateRequirementStatus",
+          "method": "POST",
+          "path": "/api/v1/requirements/{requirementId}/results",
+          "summary": "SubmitRequirementResults submits requirement deliverables and transitions to completed",
+          "operationId": "ProjectService_SubmitRequirementResults",
           "isResourceOp": false
         },
         {
@@ -691,13 +99,6 @@
           "path": "/api/v1/projects/{projectId}/requirements",
           "summary": "CreateRequirementRequest creates a new requirement request for a project",
           "operationId": "ProjectService_CreateRequirementRequest",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/requirements/{requirementId}",
-          "summary": "GetRequirementRequest retrieves a specific requirement request",
-          "operationId": "ProjectService_GetRequirementRequest",
           "isResourceOp": false
         },
         {
@@ -708,14 +109,28 @@
           "isResourceOp": false
         },
         {
-          "method": "POST",
-          "path": "/api/v1/requirements/{requirementId}/results",
-          "summary": "SubmitRequirementResults submits requirement deliverables and transitions to completed",
-          "operationId": "ProjectService_SubmitRequirementResults",
+          "method": "PUT",
+          "path": "/api/v1/requirements/{requirementId}/status",
+          "summary": "UpdateRequirementStatus updates the status of a requirement request",
+          "operationId": "ProjectService_UpdateRequirementStatus",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/requirements/{requirementId}",
+          "summary": "GetRequirementRequest retrieves a specific requirement request",
+          "operationId": "ProjectService_GetRequirementRequest",
           "isResourceOp": false
         }
       ],
       "relationships": [
+        {
+          "resource": "results",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "requirements contains multiple results resources",
+          "strength": "strong"
+        },
         {
           "resource": "projects",
           "type": "belongs_to",
@@ -731,13 +146,6 @@
           "strength": "strong"
         },
         {
-          "resource": "results",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "requirements contains multiple results resources",
-          "strength": "strong"
-        },
-        {
           "resource": "status",
           "type": "has_many",
           "via": "path hierarchy",
@@ -748,110 +156,52 @@
       "isCollection": false
     },
     {
-      "name": "regretFlags",
-      "description": "RegretFlags resource operations",
+      "name": "agents",
+      "description": "Agents resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/regretFlags",
-          "summary": "GetTaskRegretFlags retrieves all regret flags for a task\nReturns the complete history of implementation regrets",
-          "operationId": "TaskService_GetTaskRegretFlags",
+          "path": "/api/v1/agents/{persona}/context",
+          "summary": "GetAgentContext retrieves the context for a specific agent persona",
+          "operationId": "AgentService_GetAgentContext",
           "isResourceOp": false
-        }
-      ],
-      "relationships": [
+        },
         {
-          "resource": "tasks",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "regretFlags belongs to a tasks resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "simulations",
-      "description": "Simulations resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/simulations",
-          "summary": "Simulation management methods",
-          "operationId": "ReleaseService_ListSimulations",
+          "method": "PUT",
+          "path": "/api/v1/agents/{persona}/context",
+          "summary": "UpdateAgentContext updates the context for a specific agent persona",
+          "operationId": "AgentService_UpdateAgentContext",
           "isResourceOp": false
         },
         {
           "method": "GET",
-          "path": "/api/v1/simulations/{simulationName}/history",
-          "operationId": "ReleaseService_GetSimulationHistory",
+          "path": "/api/v1/agents",
+          "summary": "ListAgents retrieves all available agents with their workload information",
+          "operationId": "AgentService_ListAgents",
           "isResourceOp": false
         }
       ],
       "relationships": [
         {
-          "resource": "history",
+          "resource": "context",
           "type": "has_many",
           "via": "path hierarchy",
-          "description": "simulations contains multiple history resources",
+          "description": "agents contains multiple context resources",
           "strength": "strong"
         }
       ],
       "isCollection": false
     },
     {
-      "name": "taskBranches",
-      "description": "TaskBranches resource operations",
+      "name": "personas",
+      "description": "Personas resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/git/taskBranches/{taskId}",
-          "operationId": "GitService_GetTaskBranch",
+          "path": "/api/v1/personas",
+          "summary": "ListPersonas retrieves all available personas in the system",
+          "operationId": "AgentService_ListPersonas",
           "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/git/taskBranches",
-          "summary": "Task branch operations",
-          "operationId": "GitService_CreateTaskBranch",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "dependencies",
-      "description": "Dependencies resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencies",
-          "summary": "GetDependencies retrieves all dependencies for a specific task",
-          "operationId": "TaskService_GetDependencies",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks/{taskId}/dependencies",
-          "summary": "AddDependency adds a dependency relationship between tasks\nChecks for circular dependencies and updates task relationships",
-          "operationId": "TaskService_AddDependency",
-          "isResourceOp": false
-        },
-        {
-          "method": "DELETE",
-          "path": "/api/v1/tasks/{taskId}/dependencies/{dependencyId}",
-          "summary": "RemoveDependency removes a dependency relationship between tasks",
-          "operationId": "TaskService_RemoveDependency",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "tasks",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "dependencies belongs to a tasks resource",
-          "strength": "strong"
         }
       ],
       "isCollection": false
@@ -871,28 +221,14 @@
       "isCollection": false
     },
     {
-      "name": "watch",
-      "description": "Watch resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/health/watch",
-          "summary": "Watch streams health status changes",
-          "operationId": "Health_Watch",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "projects:scaffold",
-      "description": "Projects:scaffold resource operations",
+      "name": "regenerateIndices",
+      "description": "RegenerateIndices resource operations",
       "operations": [
         {
           "method": "POST",
-          "path": "/api/v1/projects:scaffold",
-          "summary": "ScaffoldProject creates a new project with the initial directory structure",
-          "operationId": "ProjectService_ScaffoldProject",
+          "path": "/api/v1/projects/{projectId}:regenerateIndices",
+          "summary": "RegenerateIndices rebuilds all index files",
+          "operationId": "ProjectService_RegenerateIndices",
           "isResourceOp": false
         }
       ],
@@ -916,64 +252,6 @@
           "type": "belongs_to",
           "via": "path hierarchy",
           "description": "answers belongs to a projects resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "features",
-      "description": "Features resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/features/{featureId}/tasks",
-          "summary": "GetFeatureTasks retrieves all tasks associated with a feature",
-          "operationId": "FeatureService_GetFeatureTasks",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/features",
-          "summary": "ListFeatures retrieves features with optional filtering",
-          "operationId": "FeatureService_ListFeatures",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/features",
-          "summary": "CreateFeature creates a new feature group",
-          "operationId": "FeatureService_CreateFeature",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/features/{id}",
-          "summary": "GetFeature retrieves a specific feature by ID",
-          "operationId": "FeatureService_GetFeature",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/features/{id}",
-          "summary": "UpdateFeature updates an existing feature",
-          "operationId": "FeatureService_UpdateFeature",
-          "isResourceOp": false
-        },
-        {
-          "method": "DELETE",
-          "path": "/api/v1/features/{id}",
-          "summary": "DeleteFeature removes a feature (administrative use only)",
-          "operationId": "FeatureService_DeleteFeature",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "tasks",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "features contains multiple tasks resources",
           "strength": "strong"
         }
       ],
@@ -1017,14 +295,51 @@
       "isCollection": false
     },
     {
-      "name": "blockedBy",
-      "description": "BlockedBy resource operations",
+      "name": "understanding:analyze",
+      "description": "Understanding:analyze resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/understanding:analyze",
+          "summary": "Analyze project files to create AI-powered summaries with streaming progress",
+          "operationId": "FileUnderstandingService_AnalyzeProjectFiles",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "projects",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "understanding:analyze belongs to a projects resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "flagRegret",
+      "description": "FlagRegret resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks/{taskId}:flagRegret",
+          "summary": "FlagTaskWithRegret flags a task with an implementation regret\nMoves the task to the 'flagged' status and creates a regret record",
+          "operationId": "TaskService_FlagTaskWithRegret",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "dependencyTree",
+      "description": "DependencyTree resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/blockedBy",
-          "summary": "GetBlockedBy retrieves tasks that are blocked by a specific task\nUseful for understanding the impact of completing a task",
-          "operationId": "TaskService_GetBlockedBy",
+          "path": "/api/v1/tasks/{taskId}/dependencyTree",
+          "summary": "GetDependencyTree builds a hierarchical tree view of task dependencies\nSupports both top-down and bottom-up traversal with depth limiting",
+          "operationId": "TaskService_GetDependencyTree",
           "isResourceOp": false
         }
       ],
@@ -1033,37 +348,50 @@
           "resource": "tasks",
           "type": "belongs_to",
           "via": "path hierarchy",
-          "description": "blockedBy belongs to a tasks resource",
+          "description": "dependencyTree belongs to a tasks resource",
           "strength": "strong"
         }
       ],
       "isCollection": false
     },
     {
-      "name": "releases",
-      "description": "Releases resource operations",
+      "name": "tasks:pluckNext",
+      "description": "Tasks:pluckNext resource operations",
       "operations": [
         {
-          "method": "GET",
-          "path": "/api/v1/releases",
-          "summary": "Release management methods",
-          "operationId": "ReleaseService_ListReleases",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/releases/{version}/progress",
-          "operationId": "ReleaseService_GetReleaseProgress",
+          "method": "POST",
+          "path": "/api/v1/tasks:pluckNext",
+          "summary": "PluckNextTask finds the best next task to work on\nUses the task selection algorithm to identify the highest priority task\nconsidering dependencies, confidence scores, and other factors",
+          "operationId": "TaskService_PluckNextTask",
           "isResourceOp": false
         }
       ],
-      "relationships": [
+      "isCollection": false
+    },
+    {
+      "name": "projects:scaffold",
+      "description": "Projects:scaffold resource operations",
+      "operations": [
         {
-          "resource": "progress",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "releases contains multiple progress resources",
-          "strength": "strong"
+          "method": "POST",
+          "path": "/api/v1/projects:scaffold",
+          "summary": "ScaffoldProject creates a new project with the initial directory structure",
+          "operationId": "ProjectService_ScaffoldProject",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "activities:recent",
+      "description": "Activities:recent resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/activities:recent",
+          "summary": "GetRecentActivities retrieves the most recent activities up to a specified limit",
+          "operationId": "ActivityService_GetRecentActivities",
+          "isResourceOp": false
         }
       ],
       "isCollection": false
@@ -1092,23 +420,23 @@
       "isCollection": false
     },
     {
-      "name": "understanding:analyze",
-      "description": "Understanding:analyze resource operations",
+      "name": "questions",
+      "description": "Questions resource operations",
       "operations": [
         {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/understanding:analyze",
-          "summary": "Analyze project files to create AI-powered summaries with streaming progress",
-          "operationId": "FileUnderstandingService_AnalyzeProjectFiles",
+          "method": "GET",
+          "path": "/api/v1/projectTypes/{projectType}/questions",
+          "summary": "GetProjectQuestions returns questions based on project type",
+          "operationId": "ProjectService_GetProjectQuestions",
           "isResourceOp": false
         }
       ],
       "relationships": [
         {
-          "resource": "projects",
+          "resource": "projectTypes",
           "type": "belongs_to",
           "via": "path hierarchy",
-          "description": "understanding:analyze belongs to a projects resource",
+          "description": "questions belongs to a projectTypes resource",
           "strength": "strong"
         }
       ],
@@ -1118,13 +446,6 @@
       "name": "pullRequests",
       "description": "PullRequests resource operations",
       "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/git/pullRequests/task",
-          "summary": "Pull request operations",
-          "operationId": "GitService_CreateTaskPullRequest",
-          "isResourceOp": false
-        },
         {
           "method": "GET",
           "path": "/api/v1/git/pullRequests/{branchName}",
@@ -1136,87 +457,420 @@
           "path": "/api/v1/git/pullRequests/release",
           "operationId": "GitService_CreateReleasePullRequest",
           "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/git/pullRequests/task",
+          "summary": "Pull request operations",
+          "operationId": "GitService_CreateTaskPullRequest",
+          "isResourceOp": false
         }
       ],
       "isCollection": false
     },
     {
-      "name": "dashboard",
-      "description": "Dashboard resource operations",
+      "name": "progress",
+      "description": "Progress resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/projects/{projectId}/dashboard",
-          "summary": "GetDashboardData returns all data needed for the dashboard in a single request",
-          "operationId": "DashboardService_GetDashboardData",
+          "path": "/api/v1/releases/{version}/progress",
+          "operationId": "ReleaseService_GetReleaseProgress",
           "isResourceOp": false
         }
       ],
       "relationships": [
         {
-          "resource": "projects",
+          "resource": "releases",
           "type": "belongs_to",
           "via": "path hierarchy",
-          "description": "dashboard belongs to a projects resource",
+          "description": "progress belongs to a releases resource",
           "strength": "strong"
         }
       ],
       "isCollection": false
     },
     {
-      "name": "tasks:scaffold",
-      "description": "Tasks:scaffold resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks:scaffold",
-          "summary": "Create a task from template",
-          "description": "Creates a new task with default values and places it in 'todo' status. This is a quick way to create tasks with minimal input.",
-          "operationId": "scaffoldTask",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "resolveRegret",
-      "description": "ResolveRegret resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/tasks/{taskId}:resolveRegret",
-          "summary": "ResolveTaskRegret resolves a task's implementation regret\nMoves the task back to an appropriate status based on resolution",
-          "operationId": "TaskService_ResolveTaskRegret",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "projectTypes",
-      "description": "ProjectTypes resource operations",
+      "name": "simulations",
+      "description": "Simulations resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/projectTypes/{projectType}/questions",
-          "summary": "GetProjectQuestions returns questions based on project type",
-          "operationId": "ProjectService_GetProjectQuestions",
+          "path": "/api/v1/simulations/{simulationName}/history",
+          "operationId": "ReleaseService_GetSimulationHistory",
           "isResourceOp": false
         },
         {
           "method": "GET",
-          "path": "/api/v1/projectTypes",
-          "summary": "GetProjectTypes returns supported project types and languages",
-          "operationId": "ProjectService_GetProjectTypes",
+          "path": "/api/v1/simulations",
+          "summary": "Simulation management methods",
+          "operationId": "ReleaseService_ListSimulations",
           "isResourceOp": false
         }
       ],
       "relationships": [
         {
-          "resource": "questions",
+          "resource": "history",
           "type": "has_many",
           "via": "path hierarchy",
-          "description": "projectTypes contains multiple questions resources",
+          "description": "simulations contains multiple history resources",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "validate",
+      "description": "Validate resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}:validate",
+          "summary": "ValidateProjectStructure checks if the project structure is valid and complete",
+          "operationId": "ProjectService_ValidateProjectStructure",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "dependencies",
+      "description": "Dependencies resource operations",
+      "operations": [
+        {
+          "method": "DELETE",
+          "path": "/api/v1/tasks/{taskId}/dependencies/{dependencyId}",
+          "summary": "RemoveDependency removes a dependency relationship between tasks",
+          "operationId": "TaskService_RemoveDependency",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/dependencies",
+          "summary": "GetDependencies retrieves all dependencies for a specific task",
+          "operationId": "TaskService_GetDependencies",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks/{taskId}/dependencies",
+          "summary": "AddDependency adds a dependency relationship between tasks\nChecks for circular dependencies and updates task relationships",
+          "operationId": "TaskService_AddDependency",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "dependencies belongs to a tasks resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "research",
+      "description": "Research resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/research/{researchId}/results",
+          "summary": "SubmitResearchResults submits research deliverables and transitions to completed",
+          "operationId": "ProjectService_SubmitResearchResults",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/research/{researchId}",
+          "summary": "GetResearchRequest retrieves a specific research request",
+          "operationId": "ProjectService_GetResearchRequest",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/research/{researchId}/status",
+          "summary": "UpdateResearchStatus updates the status of a research request",
+          "operationId": "ProjectService_UpdateResearchStatus",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/research/{researchId}/process",
+          "summary": "ProcessResearchResults processes completed research results",
+          "operationId": "ProjectService_ProcessResearchResults",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/research",
+          "summary": "ListResearch returns a list of research requests with filtering support",
+          "operationId": "ProjectService_ListResearch",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/research",
+          "summary": "CreateResearchRequest creates a new research request for a project",
+          "operationId": "ProjectService_CreateResearchRequest",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "results",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "research contains multiple results resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "status",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "research contains multiple status resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "process",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "research contains multiple process resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "projects",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "research belongs to a projects resource",
+          "strength": "strong"
+        },
+        {
+          "resource": "process",
+          "type": "has_many",
+          "via": "researchId",
+          "description": "research contains multiple process resources",
+          "strength": "medium"
+        },
+        {
+          "resource": "results",
+          "type": "has_many",
+          "via": "researchId",
+          "description": "research contains multiple results resources",
+          "strength": "medium"
+        },
+        {
+          "resource": "research",
+          "type": "has_many",
+          "via": "researchId",
+          "description": "research contains multiple research resources",
+          "strength": "medium"
+        },
+        {
+          "resource": "research",
+          "type": "references",
+          "via": "researchId",
+          "description": "research references a research resource",
+          "strength": "medium"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "git",
+      "description": "Git resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/git/hooks:postMerge",
+          "summary": "Hook integration",
+          "operationId": "GitService_HandlePostMergeHook",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/git/hooks:postCheckout",
+          "operationId": "GitService_HandlePostCheckoutHook",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "tasks",
+      "description": "Tasks resource operations",
+      "operations": [
+        {
+          "method": "PUT",
+          "path": "/api/v1/tasks/{taskId}/confidence",
+          "summary": "UpdateConfidenceScore updates a task's confidence score\nIncludes rationale for the score in specific categories",
+          "operationId": "TaskService_UpdateConfidenceScore",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/cycles",
+          "summary": "DetectCycles finds all dependency cycles in the current task graph\nReturns detailed information about each cycle found",
+          "operationId": "TaskService_DetectCycles",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks",
+          "summary": "List tasks",
+          "description": "Retrieve a paginated list of tasks with optional filtering by status, persona, version, and confidence score",
+          "operationId": "listTasks",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks",
+          "summary": "CreateTask creates a fully specified task\nAllows creating a task with all fields explicitly defined",
+          "operationId": "TaskService_CreateTask",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/dependencyGraph",
+          "summary": "GetTaskDependencies retrieves detailed dependency information for graph visualization\nReturns both dependencies and dependents with full task details",
+          "operationId": "TaskService_GetTaskDependencies",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/dependencyTree",
+          "summary": "GetDependencyTree builds a hierarchical tree view of task dependencies\nSupports both top-down and bottom-up traversal with depth limiting",
+          "operationId": "TaskService_GetDependencyTree",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/features/{featureId}/tasks",
+          "summary": "GetFeatureTasks retrieves all tasks associated with a feature",
+          "operationId": "FeatureService_GetFeatureTasks",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/blockedBy",
+          "summary": "GetBlockedBy retrieves tasks that are blocked by a specific task\nUseful for understanding the impact of completing a task",
+          "operationId": "TaskService_GetBlockedBy",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/blockers",
+          "summary": "GetBlockers retrieves tasks that are blocking a specific task\nUseful for understanding what's preventing a task from being worked on",
+          "operationId": "TaskService_GetBlockers",
+          "isResourceOp": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/tasks/{taskId}/dependencies/{dependencyId}",
+          "summary": "RemoveDependency removes a dependency relationship between tasks",
+          "operationId": "TaskService_RemoveDependency",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/dependencies",
+          "summary": "GetDependencies retrieves all dependencies for a specific task",
+          "operationId": "TaskService_GetDependencies",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks/{taskId}/dependencies",
+          "summary": "AddDependency adds a dependency relationship between tasks\nChecks for circular dependencies and updates task relationships",
+          "operationId": "TaskService_AddDependency",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}",
+          "summary": "Get task by ID",
+          "description": "Retrieves a specific task by its ID, including all details and activity log",
+          "operationId": "getTask",
+          "isResourceOp": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/tasks/{taskId}",
+          "summary": "DeleteTask removes a task (rarely used, primarily for administrative purposes)\nTasks that are no longer needed should typically be moved to 'completed' status instead",
+          "operationId": "TaskService_DeleteTask",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/regretFlags",
+          "summary": "GetTaskRegretFlags retrieves all regret flags for a task\nReturns the complete history of implementation regrets",
+          "operationId": "TaskService_GetTaskRegretFlags",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/tasks/{task.id}",
+          "summary": "UpdateTask updates a task's content\nModifies task fields but doesn't change status",
+          "operationId": "TaskService_UpdateTask",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "blockers",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple blockers resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "dependencies",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple dependencies resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "regretFlags",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple regretFlags resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "confidence",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple confidence resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "dependencyGraph",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple dependencyGraph resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "dependencyTree",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple dependencyTree resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "features",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "tasks belongs to a features resource",
+          "strength": "strong"
+        },
+        {
+          "resource": "blockedBy",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "tasks contains multiple blockedBy resources",
           "strength": "strong"
         }
       ],
@@ -1246,43 +900,599 @@
       "isCollection": false
     },
     {
-      "name": "validate",
-      "description": "Validate resource operations",
+      "name": "projectTypes",
+      "description": "ProjectTypes resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/projects/{projectId}:validate",
-          "summary": "ValidateProjectStructure checks if the project structure is valid and complete",
-          "operationId": "ProjectService_ValidateProjectStructure",
+          "path": "/api/v1/projectTypes",
+          "summary": "GetProjectTypes returns supported project types and languages",
+          "operationId": "ProjectService_GetProjectTypes",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projectTypes/{projectType}/questions",
+          "summary": "GetProjectQuestions returns questions based on project type",
+          "operationId": "ProjectService_GetProjectQuestions",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "questions",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projectTypes contains multiple questions resources",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "blockers",
+      "description": "Blockers resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/blockers",
+          "summary": "GetBlockers retrieves tasks that are blocking a specific task\nUseful for understanding what's preventing a task from being worked on",
+          "operationId": "TaskService_GetBlockers",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "blockers belongs to a tasks resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "watch",
+      "description": "Watch resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/health/watch",
+          "summary": "Watch streams health status changes",
+          "operationId": "Health_Watch",
           "isResourceOp": false
         }
       ],
       "isCollection": false
     },
     {
-      "name": "tasks:pluckNext",
-      "description": "Tasks:pluckNext resource operations",
+      "name": "files",
+      "description": "Files resource operations",
       "operations": [
         {
-          "method": "POST",
-          "path": "/api/v1/tasks:pluckNext",
-          "summary": "PluckNextTask finds the best next task to work on\nUses the task selection algorithm to identify the highest priority task\nconsidering dependencies, confidence scores, and other factors",
-          "operationId": "TaskService_PluckNextTask",
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/understanding/files",
+          "summary": "Get understanding for a specific file",
+          "operationId": "FileUnderstandingService_GetFileUnderstanding",
           "isResourceOp": false
         }
       ],
       "isCollection": false
     },
     {
-      "name": "flagRegret",
-      "description": "FlagRegret resource operations",
+      "name": "history",
+      "description": "History resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/simulations/{simulationName}/history",
+          "operationId": "ReleaseService_GetSimulationHistory",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "simulations",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "history belongs to a simulations resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "validateTransition",
+      "description": "ValidateTransition resource operations",
       "operations": [
         {
           "method": "POST",
-          "path": "/api/v1/tasks/{taskId}:flagRegret",
-          "summary": "FlagTaskWithRegret flags a task with an implementation regret\nMoves the task to the 'flagged' status and creates a regret record",
-          "operationId": "TaskService_FlagTaskWithRegret",
+          "path": "/api/v1/tasks/{taskId}:validateTransition",
+          "summary": "ValidateTaskTransition checks if a state transition is valid without performing it\nUseful for client-side validation before attempting a transition",
+          "operationId": "TaskService_ValidateTaskTransition",
           "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "activities",
+      "description": "Activities resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/activities",
+          "summary": "ListActivities retrieves activities based on filter criteria",
+          "operationId": "ActivityService_ListActivities",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "understand",
+      "description": "Understand resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}:understand",
+          "summary": "UnderstandProject analyzes a project and provides streaming progress updates",
+          "operationId": "ProjectService_UnderstandProject",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "repair",
+      "description": "Repair resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}:repair",
+          "summary": "RepairProjectStructure repairs missing directories and files in the project structure",
+          "operationId": "ProjectService_RepairProjectStructure",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "tasks:batchGet",
+      "description": "Tasks:batchGet resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks:batchGet",
+          "summary": "BatchGetTasks retrieves multiple tasks in a single request\nAccepts up to 100 task IDs and returns tasks in the same order",
+          "operationId": "TaskService_BatchGetTasks",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "regretFlags",
+      "description": "RegretFlags resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/regretFlags",
+          "summary": "GetTaskRegretFlags retrieves all regret flags for a task\nReturns the complete history of implementation regrets",
+          "operationId": "TaskService_GetTaskRegretFlags",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "regretFlags belongs to a tasks resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "projects",
+      "description": "Projects resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/understanding",
+          "summary": "List all file understandings for a project",
+          "operationId": "FileUnderstandingService_ListProjectUnderstanding",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/understanding:analyze",
+          "summary": "Analyze project files to create AI-powered summaries with streaming progress",
+          "operationId": "FileUnderstandingService_AnalyzeProjectFiles",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/answers",
+          "summary": "StoreProjectAnswers stores question answers for a project",
+          "operationId": "ProjectService_StoreProjectAnswers",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/audits",
+          "summary": "ListAudits returns a list of audit requests with filtering support",
+          "operationId": "ProjectService_ListAudits",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/audits",
+          "summary": "CreateAuditRequest creates a new audit request for a project",
+          "operationId": "ProjectService_CreateAuditRequest",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/metadata",
+          "summary": "GetProjectMetadata retrieves project metadata",
+          "operationId": "ProjectService_GetProjectMetadata",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/projects/metadata",
+          "summary": "UpdateProjectMetadata initializes or updates project metadata",
+          "operationId": "ProjectService_UpdateProjectMetadata",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/research",
+          "summary": "ListResearch returns a list of research requests with filtering support",
+          "operationId": "ProjectService_ListResearch",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/research",
+          "summary": "CreateResearchRequest creates a new research request for a project",
+          "operationId": "ProjectService_CreateResearchRequest",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects",
+          "summary": "ListProjects returns a paginated list of all projects",
+          "operationId": "ProjectService_ListProjects",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/dashboard",
+          "summary": "GetDashboardData returns all data needed for the dashboard in a single request",
+          "operationId": "DashboardService_GetDashboardData",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/projects/info",
+          "summary": "UpdateProjectInfo updates only mutable fields (name and description)",
+          "operationId": "ProjectService_UpdateProjectInfo",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/stats",
+          "summary": "GetProjectStats returns project-wide statistics and metrics",
+          "operationId": "ProjectService_GetProjectStats",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/requirements",
+          "summary": "ListRequirements returns a list of requirement requests with filtering support",
+          "operationId": "ProjectService_ListRequirements",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/projects/{projectId}/requirements",
+          "summary": "CreateRequirementRequest creates a new requirement request for a project",
+          "operationId": "ProjectService_CreateRequirementRequest",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/understanding/files",
+          "summary": "Get understanding for a specific file",
+          "operationId": "FileUnderstandingService_GetFileUnderstanding",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/understanding/status",
+          "summary": "Get current understanding status for a project",
+          "operationId": "FileUnderstandingService_GetUnderstandingStatus",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/projects/{project.id}",
+          "summary": "UpdateProject updates project information",
+          "operationId": "ProjectService_UpdateProject",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}",
+          "summary": "GetProject retrieves project information",
+          "operationId": "ProjectService_GetProject",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "stats",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple stats resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "requirements",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple requirements resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "understanding",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple understanding resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "understanding:analyze",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple understanding:analyze resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "answers",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple answers resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "audits",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple audits resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "research",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple research resources",
+          "strength": "strong"
+        },
+        {
+          "resource": "dashboard",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "projects contains multiple dashboard resources",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "process",
+      "description": "Process resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/research/{researchId}/process",
+          "summary": "ProcessResearchResults processes completed research results",
+          "operationId": "ProjectService_ProcessResearchResults",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/audits/{auditId}/process",
+          "summary": "ProcessAuditResults processes completed audit results and creates tasks",
+          "operationId": "ProjectService_ProcessAuditResults",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/requirements/{requirementId}/process",
+          "summary": "ProcessRequirementResults processes completed requirement results",
+          "operationId": "ProjectService_ProcessRequirementResults",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "requirements",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "process belongs to a requirements resource",
+          "strength": "strong"
+        },
+        {
+          "resource": "research",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "process belongs to a research resource",
+          "strength": "strong"
+        },
+        {
+          "resource": "audits",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "process belongs to a audits resource",
+          "strength": "strong"
+        },
+        {
+          "resource": "research",
+          "type": "references",
+          "via": "researchId",
+          "description": "process references a research resource",
+          "strength": "medium"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "releaseBranches",
+      "description": "ReleaseBranches resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/git/releaseBranches",
+          "summary": "Release branch operations",
+          "operationId": "GitService_CreateReleaseBranch",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/git/releaseBranches/{version}",
+          "operationId": "GitService_GetReleaseBranch",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "context",
+      "description": "Context resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/agents/{persona}/context",
+          "summary": "GetAgentContext retrieves the context for a specific agent persona",
+          "operationId": "AgentService_GetAgentContext",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/agents/{persona}/context",
+          "summary": "UpdateAgentContext updates the context for a specific agent persona",
+          "operationId": "AgentService_UpdateAgentContext",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "agents",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "context belongs to a agents resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "tasks:scaffold",
+      "description": "Tasks:scaffold resource operations",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/tasks:scaffold",
+          "summary": "Create a task from template",
+          "description": "Creates a new task with default values and places it in 'todo' status. This is a quick way to create tasks with minimal input.",
+          "operationId": "scaffoldTask",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "dependencyGraph",
+      "description": "DependencyGraph resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/tasks/{taskId}/dependencyGraph",
+          "summary": "GetTaskDependencies retrieves detailed dependency information for graph visualization\nReturns both dependencies and dependents with full task details",
+          "operationId": "TaskService_GetTaskDependencies",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "dependencyGraph belongs to a tasks resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "features",
+      "description": "Features resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/features/{featureId}/tasks",
+          "summary": "GetFeatureTasks retrieves all tasks associated with a feature",
+          "operationId": "FeatureService_GetFeatureTasks",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/features/{id}",
+          "summary": "GetFeature retrieves a specific feature by ID",
+          "operationId": "FeatureService_GetFeature",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/features/{id}",
+          "summary": "UpdateFeature updates an existing feature",
+          "operationId": "FeatureService_UpdateFeature",
+          "isResourceOp": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/features/{id}",
+          "summary": "DeleteFeature removes a feature (administrative use only)",
+          "operationId": "FeatureService_DeleteFeature",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/features",
+          "summary": "ListFeatures retrieves features with optional filtering",
+          "operationId": "FeatureService_ListFeatures",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/features",
+          "summary": "CreateFeature creates a new feature group",
+          "operationId": "FeatureService_CreateFeature",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "features contains multiple tasks resources",
+          "strength": "strong"
         }
       ],
       "isCollection": false
@@ -1315,6 +1525,13 @@
       ],
       "relationships": [
         {
+          "resource": "requirements",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "results belongs to a requirements resource",
+          "strength": "strong"
+        },
+        {
           "resource": "research",
           "type": "belongs_to",
           "via": "path hierarchy",
@@ -1329,13 +1546,6 @@
           "strength": "strong"
         },
         {
-          "resource": "requirements",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "results belongs to a requirements resource",
-          "strength": "strong"
-        },
-        {
           "resource": "research",
           "type": "references",
           "via": "researchId",
@@ -1346,100 +1556,56 @@
       "isCollection": false
     },
     {
-      "name": "understand",
-      "description": "Understand resource operations",
+      "name": "resolveRegret",
+      "description": "ResolveRegret resource operations",
       "operations": [
         {
           "method": "POST",
-          "path": "/api/v1/projects/{projectId}:understand",
-          "summary": "UnderstandProject analyzes a project and provides streaming progress updates",
-          "operationId": "ProjectService_UnderstandProject",
+          "path": "/api/v1/tasks/{taskId}:resolveRegret",
+          "summary": "ResolveTaskRegret resolves a task's implementation regret\nMoves the task back to an appropriate status based on resolution",
+          "operationId": "TaskService_ResolveTaskRegret",
           "isResourceOp": false
         }
       ],
       "isCollection": false
     },
     {
-      "name": "questions",
-      "description": "Questions resource operations",
+      "name": "move",
+      "description": "Move resource operations",
       "operations": [
         {
-          "method": "GET",
-          "path": "/api/v1/projectTypes/{projectType}/questions",
-          "summary": "GetProjectQuestions returns questions based on project type",
-          "operationId": "ProjectService_GetProjectQuestions",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "projectTypes",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "questions belongs to a projectTypes resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "activities:recent",
-      "description": "Activities:recent resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/activities:recent",
-          "summary": "GetRecentActivities retrieves the most recent activities up to a specified limit",
-          "operationId": "ActivityService_GetRecentActivities",
+          "method": "POST",
+          "path": "/api/v1/tasks/{taskId}:move",
+          "summary": "MoveTask changes a task's status (e.g., from todo to in-progress)\nEnforces workflow transition rules and updates the task's position",
+          "operationId": "TaskService_MoveTask",
           "isResourceOp": false
         }
       ],
       "isCollection": false
     },
     {
-      "name": "research",
-      "description": "Research resource operations",
+      "name": "understanding",
+      "description": "Understanding resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/projects/{projectId}/research",
-          "summary": "ListResearch returns a list of research requests with filtering support",
-          "operationId": "ProjectService_ListResearch",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/projects/{projectId}/research",
-          "summary": "CreateResearchRequest creates a new research request for a project",
-          "operationId": "ProjectService_CreateResearchRequest",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/research/{researchId}/results",
-          "summary": "SubmitResearchResults submits research deliverables and transitions to completed",
-          "operationId": "ProjectService_SubmitResearchResults",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/research/{researchId}/process",
-          "summary": "ProcessResearchResults processes completed research results",
-          "operationId": "ProjectService_ProcessResearchResults",
-          "isResourceOp": false
-        },
-        {
-          "method": "PUT",
-          "path": "/api/v1/research/{researchId}/status",
-          "summary": "UpdateResearchStatus updates the status of a research request",
-          "operationId": "ProjectService_UpdateResearchStatus",
+          "path": "/api/v1/projects/{projectId}/understanding",
+          "summary": "List all file understandings for a project",
+          "operationId": "FileUnderstandingService_ListProjectUnderstanding",
           "isResourceOp": false
         },
         {
           "method": "GET",
-          "path": "/api/v1/research/{researchId}",
-          "summary": "GetResearchRequest retrieves a specific research request",
-          "operationId": "ProjectService_GetResearchRequest",
+          "path": "/api/v1/projects/{projectId}/understanding/files",
+          "summary": "Get understanding for a specific file",
+          "operationId": "FileUnderstandingService_GetFileUnderstanding",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/projects/{projectId}/understanding/status",
+          "summary": "Get current understanding status for a project",
+          "operationId": "FileUnderstandingService_GetUnderstandingStatus",
           "isResourceOp": false
         }
       ],
@@ -1448,221 +1614,8 @@
           "resource": "projects",
           "type": "belongs_to",
           "via": "path hierarchy",
-          "description": "research belongs to a projects resource",
+          "description": "understanding belongs to a projects resource",
           "strength": "strong"
-        },
-        {
-          "resource": "results",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "research contains multiple results resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "process",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "research contains multiple process resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "status",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "research contains multiple status resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "results",
-          "type": "has_many",
-          "via": "researchId",
-          "description": "research contains multiple results resources",
-          "strength": "medium"
-        },
-        {
-          "resource": "research",
-          "type": "has_many",
-          "via": "researchId",
-          "description": "research contains multiple research resources",
-          "strength": "medium"
-        },
-        {
-          "resource": "research",
-          "type": "references",
-          "via": "researchId",
-          "description": "research references a research resource",
-          "strength": "medium"
-        },
-        {
-          "resource": "process",
-          "type": "has_many",
-          "via": "researchId",
-          "description": "research contains multiple process resources",
-          "strength": "medium"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "dependencyGraph",
-      "description": "DependencyGraph resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencyGraph",
-          "summary": "GetTaskDependencies retrieves detailed dependency information for graph visualization\nReturns both dependencies and dependents with full task details",
-          "operationId": "TaskService_GetTaskDependencies",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "tasks",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "dependencyGraph belongs to a tasks resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "process",
-      "description": "Process resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/audits/{auditId}/process",
-          "summary": "ProcessAuditResults processes completed audit results and creates tasks",
-          "operationId": "ProjectService_ProcessAuditResults",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/research/{researchId}/process",
-          "summary": "ProcessResearchResults processes completed research results",
-          "operationId": "ProjectService_ProcessResearchResults",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/requirements/{requirementId}/process",
-          "summary": "ProcessRequirementResults processes completed requirement results",
-          "operationId": "ProjectService_ProcessRequirementResults",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "audits",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "process belongs to a audits resource",
-          "strength": "strong"
-        },
-        {
-          "resource": "research",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "process belongs to a research resource",
-          "strength": "strong"
-        },
-        {
-          "resource": "requirements",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "process belongs to a requirements resource",
-          "strength": "strong"
-        },
-        {
-          "resource": "research",
-          "type": "references",
-          "via": "researchId",
-          "description": "process references a research resource",
-          "strength": "medium"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "progress",
-      "description": "Progress resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/releases/{version}/progress",
-          "operationId": "ReleaseService_GetReleaseProgress",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "releases",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "progress belongs to a releases resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "dependencyTree",
-      "description": "DependencyTree resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/api/v1/tasks/{taskId}/dependencyTree",
-          "summary": "GetDependencyTree builds a hierarchical tree view of task dependencies\nSupports both top-down and bottom-up traversal with depth limiting",
-          "operationId": "TaskService_GetDependencyTree",
-          "isResourceOp": false
-        }
-      ],
-      "relationships": [
-        {
-          "resource": "tasks",
-          "type": "belongs_to",
-          "via": "path hierarchy",
-          "description": "dependencyTree belongs to a tasks resource",
-          "strength": "strong"
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "docker",
-      "description": "Docker resource operations",
-      "operations": [
-        {
-          "method": "POST",
-          "path": "/api/v1/docker/containers:validate",
-          "operationId": "ReleaseService_ValidateReleaseContainer",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/docker/containers",
-          "operationId": "ReleaseService_ListReleaseContainers",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/docker/containers:publish",
-          "operationId": "ReleaseService_PublishReleaseContainer",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/docker/containers:build",
-          "operationId": "ReleaseService_BuildReleaseContainer",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/docker/status",
-          "summary": "Docker protocol methods",
-          "operationId": "ReleaseService_GetDockerStatus",
-          "isResourceOp": false
         }
       ],
       "isCollection": false
@@ -1672,31 +1625,10 @@
       "description": "Audits resource operations",
       "operations": [
         {
-          "method": "PUT",
-          "path": "/api/v1/audits/{auditId}/status",
-          "summary": "UpdateAuditStatus updates the status of an audit request",
-          "operationId": "ProjectService_UpdateAuditStatus",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/audits/{auditId}",
-          "summary": "GetAuditRequest retrieves a specific audit request",
-          "operationId": "ProjectService_GetAuditRequest",
-          "isResourceOp": false
-        },
-        {
           "method": "POST",
           "path": "/api/v1/audits/{auditId}/results",
           "summary": "SubmitAuditResults submits audit deliverables and transitions to completed",
           "operationId": "ProjectService_SubmitAuditResults",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/audits/{auditId}/process",
-          "summary": "ProcessAuditResults processes completed audit results and creates tasks",
-          "operationId": "ProjectService_ProcessAuditResults",
           "isResourceOp": false
         },
         {
@@ -1712,21 +1644,42 @@
           "summary": "CreateAuditRequest creates a new audit request for a project",
           "operationId": "ProjectService_CreateAuditRequest",
           "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/audits/{auditId}",
+          "summary": "GetAuditRequest retrieves a specific audit request",
+          "operationId": "ProjectService_GetAuditRequest",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/audits/{auditId}/process",
+          "summary": "ProcessAuditResults processes completed audit results and creates tasks",
+          "operationId": "ProjectService_ProcessAuditResults",
+          "isResourceOp": false
+        },
+        {
+          "method": "PUT",
+          "path": "/api/v1/audits/{auditId}/status",
+          "summary": "UpdateAuditStatus updates the status of an audit request",
+          "operationId": "ProjectService_UpdateAuditStatus",
+          "isResourceOp": false
         }
       ],
       "relationships": [
+        {
+          "resource": "status",
+          "type": "has_many",
+          "via": "path hierarchy",
+          "description": "audits contains multiple status resources",
+          "strength": "strong"
+        },
         {
           "resource": "results",
           "type": "has_many",
           "via": "path hierarchy",
           "description": "audits contains multiple results resources",
-          "strength": "strong"
-        },
-        {
-          "resource": "process",
-          "type": "has_many",
-          "via": "path hierarchy",
-          "description": "audits contains multiple process resources",
           "strength": "strong"
         },
         {
@@ -1737,24 +1690,71 @@
           "strength": "strong"
         },
         {
-          "resource": "status",
+          "resource": "process",
           "type": "has_many",
           "via": "path hierarchy",
-          "description": "audits contains multiple status resources",
+          "description": "audits contains multiple process resources",
           "strength": "strong"
         }
       ],
       "isCollection": false
     },
     {
-      "name": "personas",
-      "description": "Personas resource operations",
+      "name": "blockedBy",
+      "description": "BlockedBy resource operations",
       "operations": [
         {
           "method": "GET",
-          "path": "/api/v1/personas",
-          "summary": "ListPersonas retrieves all available personas in the system",
-          "operationId": "AgentService_ListPersonas",
+          "path": "/api/v1/tasks/{taskId}/blockedBy",
+          "summary": "GetBlockedBy retrieves tasks that are blocked by a specific task\nUseful for understanding the impact of completing a task",
+          "operationId": "TaskService_GetBlockedBy",
+          "isResourceOp": false
+        }
+      ],
+      "relationships": [
+        {
+          "resource": "tasks",
+          "type": "belongs_to",
+          "via": "path hierarchy",
+          "description": "blockedBy belongs to a tasks resource",
+          "strength": "strong"
+        }
+      ],
+      "isCollection": false
+    },
+    {
+      "name": "docker",
+      "description": "Docker resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/api/v1/docker/status",
+          "summary": "Docker protocol methods",
+          "operationId": "ReleaseService_GetDockerStatus",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/docker/containers",
+          "operationId": "ReleaseService_ListReleaseContainers",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/docker/containers:build",
+          "operationId": "ReleaseService_BuildReleaseContainer",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/docker/containers:publish",
+          "operationId": "ReleaseService_PublishReleaseContainer",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/docker/containers:validate",
+          "operationId": "ReleaseService_ValidateReleaseContainer",
           "isResourceOp": false
         }
       ],
@@ -1766,7 +1766,7 @@
       "type": "versioning",
       "description": "API uses URL path versioning. Versions found: v1",
       "examples": [
-        "/api/v1/releases"
+        "/api/v1/projectTypes/{projectType}/questions"
       ],
       "confidence": "high",
       "impact": "Clients should be aware of API version compatibility"
@@ -1787,7 +1787,7 @@
     "totalEndpoints": 83,
     "resourceCoverage": 154
   },
-  "generatedAt": "2025-07-16T11:01:05.233767799-07:00",
+  "generatedAt": "2025-07-16T14:39:20.139528858-07:00",
   "specType": "OpenAPI 3.0.3",
   "originalPaths": 0
 }

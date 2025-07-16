@@ -7,7 +7,7 @@ HTTP REST API for the Forge Development System - AI-driven software development 
 - **API Version**: 1.0.0
 - **Specification Type**: OpenAPI 3.0.3
 - **Base URL**: http://localhost:50052/api/v1
-- **Generated**: 2025-07-16 11:01:05
+- **Generated**: 2025-07-16 14:39:20
 
 ## API Statistics
 
@@ -663,239 +663,305 @@ This section shows how resources relate to each other.
 
 ```mermaid
 graph TD
-    pullRequests
-    dependencyTree
-    git
-    projects
-    features
-    regretFlags
-    understanding:analyze
-    process
-    taskBranches
-    projectTypes
-    regenerateIndices
-    docker
-    agents
-    questions
-    documents:analyze
-    simulations
-    tasks:scaffold
-    dashboard
-    answers
-    research
-    activities:recent
-    flagRegret
-    history
-    move
-    blockedBy
-    dependencyGraph
-    projects:scaffold
-    tasks:pluckNext
-    analysis
-    blockers
-    requirements
-    dependencies
-    audits
-    validate
-    releaseBranches
     stats
-    understanding
-    personas
-    resolveRegret
-    releases
-    tasks:batchGet
+    requirements
+    validate
+    tasks:scaffold
     context
-    repair
-    tasks
-    progress
-    files
-    results
-    understand
-    validateTransition
-    activities
-    confidence
+    dependencies
+    answers
+    blockedBy
+    history
     watch
-    dependencyTree -->|belongs_to| tasks
-    projects -->|has_many| dashboard
-    projects -->|has_many| answers
-    projects -->|has_many| understanding:analyze
-    projects -->|has_many| audits
-    projects -->|has_many| stats
-    projects -->|has_many| understanding
-    projects -->|has_many| research
-    projects -->|has_many| requirements
-    features -->|has_many| tasks
-    regretFlags -->|belongs_to| tasks
-    understanding:analyze -->|belongs_to| projects
-    process -->|belongs_to| requirements
-    process -->|belongs_to| research
-    process -->|belongs_to| audits
-    process -.->|references| research
-    projectTypes -->|has_many| questions
-    agents -->|has_many| context
-    questions -->|belongs_to| projectTypes
-    simulations -->|has_many| history
-    dashboard -->|belongs_to| projects
+    confidence
+    research
+    repair
+    personas
+    tasks:batchGet
+    agents
+    releaseBranches
+    features
+    taskBranches
+    flagRegret
+    activities
+    tasks:pluckNext
+    audits
+    dashboard
+    simulations
+    docker
+    documents:analyze
+    dependencyTree
+    regenerateIndices
+    tasks
+    process
+    files
+    resolveRegret
+    understanding:analyze
+    progress
+    blockers
+    pullRequests
+    projects
+    projectTypes
+    questions
+    releases
+    analysis
+    git
+    projects:scaffold
+    regretFlags
+    understand
+    understanding
+    dependencyGraph
+    move
+    results
+    validateTransition
+    activities:recent
+    stats -->|belongs_to| projects
+    requirements -->|has_many| status
+    requirements -->|belongs_to| projects
+    requirements -->|has_many| process
+    requirements -->|has_many| results
+    context -->|belongs_to| agents
+    dependencies -->|belongs_to| tasks
     answers -->|belongs_to| projects
-    research -->|has_many| process
-    research -->|belongs_to| projects
+    blockedBy -->|belongs_to| tasks
+    history -->|belongs_to| simulations
+    confidence -->|belongs_to| tasks
     research -->|has_many| status
+    research -->|belongs_to| projects
+    research -->|has_many| process
     research -->|has_many| results
-    research -.->|has_many| process
+    research -.->|has_many| results
     research -.->|has_many| research
     research -.->|references| research
-    research -.->|has_many| results
-    history -->|belongs_to| simulations
-    blockedBy -->|belongs_to| tasks
-    dependencyGraph -->|belongs_to| tasks
+    research -.->|has_many| process
+    agents -->|has_many| context
+    features -->|has_many| tasks
+    audits -->|belongs_to| projects
+    audits -->|has_many| results
+    audits -->|has_many| process
+    audits -->|has_many| status
+    dashboard -->|belongs_to| projects
+    simulations -->|has_many| history
+    dependencyTree -->|belongs_to| tasks
+    tasks -->|has_many| blockedBy
+    tasks -->|has_many| blockers
+    tasks -->|has_many| confidence
+    tasks -->|belongs_to| features
+    tasks -->|has_many| regretFlags
+    tasks -->|has_many| dependencyGraph
+    tasks -->|has_many| dependencies
+    tasks -->|has_many| dependencyTree
+    process -->|belongs_to| audits
+    process -->|belongs_to| research
+    process -->|belongs_to| requirements
+    process -.->|references| research
+    understanding:analyze -->|belongs_to| projects
+    progress -->|belongs_to| releases
+    blockers -->|belongs_to| tasks
+    projects -->|has_many| audits
+    projects -->|has_many| understanding:analyze
+    projects -->|has_many| research
+    projects -->|has_many| dashboard
+    projects -->|has_many| stats
+    projects -->|has_many| understanding
+    projects -->|has_many| requirements
+    projects -->|has_many| answers
+    projectTypes -->|has_many| questions
+    questions -->|belongs_to| projectTypes
+    releases -->|has_many| progress
     analysis -->|has_many| status
     analysis -.->|has_many| analysis
     analysis -.->|references| analysis
-    blockers -->|belongs_to| tasks
-    requirements -->|has_many| process
-    requirements -->|has_many| status
-    requirements -->|has_many| results
-    requirements -->|belongs_to| projects
-    dependencies -->|belongs_to| tasks
-    audits -->|belongs_to| projects
-    audits -->|has_many| status
-    audits -->|has_many| results
-    audits -->|has_many| process
-    stats -->|belongs_to| projects
+    regretFlags -->|belongs_to| tasks
     understanding -->|belongs_to| projects
-    releases -->|has_many| progress
-    context -->|belongs_to| agents
-    tasks -->|has_many| regretFlags
-    tasks -->|has_many| dependencies
-    tasks -->|has_many| confidence
-    tasks -->|belongs_to| features
-    tasks -->|has_many| blockedBy
-    tasks -->|has_many| dependencyGraph
-    tasks -->|has_many| blockers
-    tasks -->|has_many| dependencyTree
-    progress -->|belongs_to| releases
+    dependencyGraph -->|belongs_to| tasks
     results -->|belongs_to| audits
-    results -->|belongs_to| requirements
     results -->|belongs_to| research
+    results -->|belongs_to| requirements
     results -.->|references| research
-    confidence -->|belongs_to| tasks
 ```
 
 ### Relationship Details
 
-### DependencyTree Relationships
-
-- **belongs_to** tasks (strong strength via `path hierarchy`)
-  - dependencyTree belongs to a tasks resource
-
-### Projects Relationships
-
-- **has_many** dashboard (strong strength via `path hierarchy`)
-  - projects contains multiple dashboard resources
-- **has_many** answers (strong strength via `path hierarchy`)
-  - projects contains multiple answers resources
-- **has_many** understanding:analyze (strong strength via `path hierarchy`)
-  - projects contains multiple understanding:analyze resources
-- **has_many** audits (strong strength via `path hierarchy`)
-  - projects contains multiple audits resources
-- **has_many** stats (strong strength via `path hierarchy`)
-  - projects contains multiple stats resources
-- **has_many** understanding (strong strength via `path hierarchy`)
-  - projects contains multiple understanding resources
-- **has_many** research (strong strength via `path hierarchy`)
-  - projects contains multiple research resources
-- **has_many** requirements (strong strength via `path hierarchy`)
-  - projects contains multiple requirements resources
-
-### Features Relationships
-
-- **has_many** tasks (strong strength via `path hierarchy`)
-  - features contains multiple tasks resources
-
-### RegretFlags Relationships
-
-- **belongs_to** tasks (strong strength via `path hierarchy`)
-  - regretFlags belongs to a tasks resource
-
-### Understanding:analyze Relationships
+### Stats Relationships
 
 - **belongs_to** projects (strong strength via `path hierarchy`)
-  - understanding:analyze belongs to a projects resource
+  - stats belongs to a projects resource
 
-### Process Relationships
+### Requirements Relationships
 
-- **belongs_to** requirements (strong strength via `path hierarchy`)
-  - process belongs to a requirements resource
-- **belongs_to** research (strong strength via `path hierarchy`)
-  - process belongs to a research resource
-- **belongs_to** audits (strong strength via `path hierarchy`)
-  - process belongs to a audits resource
-- **references** research (medium strength via `researchId`)
-  - process references a research resource
-
-### ProjectTypes Relationships
-
-- **has_many** questions (strong strength via `path hierarchy`)
-  - projectTypes contains multiple questions resources
-
-### Agents Relationships
-
-- **has_many** context (strong strength via `path hierarchy`)
-  - agents contains multiple context resources
-
-### Questions Relationships
-
-- **belongs_to** projectTypes (strong strength via `path hierarchy`)
-  - questions belongs to a projectTypes resource
-
-### Simulations Relationships
-
-- **has_many** history (strong strength via `path hierarchy`)
-  - simulations contains multiple history resources
-
-### Dashboard Relationships
-
+- **has_many** status (strong strength via `path hierarchy`)
+  - requirements contains multiple status resources
 - **belongs_to** projects (strong strength via `path hierarchy`)
-  - dashboard belongs to a projects resource
+  - requirements belongs to a projects resource
+- **has_many** process (strong strength via `path hierarchy`)
+  - requirements contains multiple process resources
+- **has_many** results (strong strength via `path hierarchy`)
+  - requirements contains multiple results resources
+
+### Context Relationships
+
+- **belongs_to** agents (strong strength via `path hierarchy`)
+  - context belongs to a agents resource
+
+### Dependencies Relationships
+
+- **belongs_to** tasks (strong strength via `path hierarchy`)
+  - dependencies belongs to a tasks resource
 
 ### Answers Relationships
 
 - **belongs_to** projects (strong strength via `path hierarchy`)
   - answers belongs to a projects resource
 
-### Research Relationships
+### BlockedBy Relationships
 
-- **has_many** process (strong strength via `path hierarchy`)
-  - research contains multiple process resources
-- **belongs_to** projects (strong strength via `path hierarchy`)
-  - research belongs to a projects resource
-- **has_many** status (strong strength via `path hierarchy`)
-  - research contains multiple status resources
-- **has_many** results (strong strength via `path hierarchy`)
-  - research contains multiple results resources
-- **has_many** process (medium strength via `researchId`)
-  - research contains multiple process resources
-- **has_many** research (medium strength via `researchId`)
-  - research contains multiple research resources
-- **references** research (medium strength via `researchId`)
-  - research references a research resource
-- **has_many** results (medium strength via `researchId`)
-  - research contains multiple results resources
+- **belongs_to** tasks (strong strength via `path hierarchy`)
+  - blockedBy belongs to a tasks resource
 
 ### History Relationships
 
 - **belongs_to** simulations (strong strength via `path hierarchy`)
   - history belongs to a simulations resource
 
-### BlockedBy Relationships
+### Confidence Relationships
 
 - **belongs_to** tasks (strong strength via `path hierarchy`)
-  - blockedBy belongs to a tasks resource
+  - confidence belongs to a tasks resource
 
-### DependencyGraph Relationships
+### Research Relationships
+
+- **has_many** status (strong strength via `path hierarchy`)
+  - research contains multiple status resources
+- **belongs_to** projects (strong strength via `path hierarchy`)
+  - research belongs to a projects resource
+- **has_many** process (strong strength via `path hierarchy`)
+  - research contains multiple process resources
+- **has_many** results (strong strength via `path hierarchy`)
+  - research contains multiple results resources
+- **has_many** results (medium strength via `researchId`)
+  - research contains multiple results resources
+- **has_many** research (medium strength via `researchId`)
+  - research contains multiple research resources
+- **references** research (medium strength via `researchId`)
+  - research references a research resource
+- **has_many** process (medium strength via `researchId`)
+  - research contains multiple process resources
+
+### Agents Relationships
+
+- **has_many** context (strong strength via `path hierarchy`)
+  - agents contains multiple context resources
+
+### Features Relationships
+
+- **has_many** tasks (strong strength via `path hierarchy`)
+  - features contains multiple tasks resources
+
+### Audits Relationships
+
+- **belongs_to** projects (strong strength via `path hierarchy`)
+  - audits belongs to a projects resource
+- **has_many** results (strong strength via `path hierarchy`)
+  - audits contains multiple results resources
+- **has_many** process (strong strength via `path hierarchy`)
+  - audits contains multiple process resources
+- **has_many** status (strong strength via `path hierarchy`)
+  - audits contains multiple status resources
+
+### Dashboard Relationships
+
+- **belongs_to** projects (strong strength via `path hierarchy`)
+  - dashboard belongs to a projects resource
+
+### Simulations Relationships
+
+- **has_many** history (strong strength via `path hierarchy`)
+  - simulations contains multiple history resources
+
+### DependencyTree Relationships
 
 - **belongs_to** tasks (strong strength via `path hierarchy`)
-  - dependencyGraph belongs to a tasks resource
+  - dependencyTree belongs to a tasks resource
+
+### Tasks Relationships
+
+- **has_many** blockedBy (strong strength via `path hierarchy`)
+  - tasks contains multiple blockedBy resources
+- **has_many** blockers (strong strength via `path hierarchy`)
+  - tasks contains multiple blockers resources
+- **has_many** confidence (strong strength via `path hierarchy`)
+  - tasks contains multiple confidence resources
+- **belongs_to** features (strong strength via `path hierarchy`)
+  - tasks belongs to a features resource
+- **has_many** regretFlags (strong strength via `path hierarchy`)
+  - tasks contains multiple regretFlags resources
+- **has_many** dependencyGraph (strong strength via `path hierarchy`)
+  - tasks contains multiple dependencyGraph resources
+- **has_many** dependencies (strong strength via `path hierarchy`)
+  - tasks contains multiple dependencies resources
+- **has_many** dependencyTree (strong strength via `path hierarchy`)
+  - tasks contains multiple dependencyTree resources
+
+### Process Relationships
+
+- **belongs_to** audits (strong strength via `path hierarchy`)
+  - process belongs to a audits resource
+- **belongs_to** research (strong strength via `path hierarchy`)
+  - process belongs to a research resource
+- **belongs_to** requirements (strong strength via `path hierarchy`)
+  - process belongs to a requirements resource
+- **references** research (medium strength via `researchId`)
+  - process references a research resource
+
+### Understanding:analyze Relationships
+
+- **belongs_to** projects (strong strength via `path hierarchy`)
+  - understanding:analyze belongs to a projects resource
+
+### Progress Relationships
+
+- **belongs_to** releases (strong strength via `path hierarchy`)
+  - progress belongs to a releases resource
+
+### Blockers Relationships
+
+- **belongs_to** tasks (strong strength via `path hierarchy`)
+  - blockers belongs to a tasks resource
+
+### Projects Relationships
+
+- **has_many** audits (strong strength via `path hierarchy`)
+  - projects contains multiple audits resources
+- **has_many** understanding:analyze (strong strength via `path hierarchy`)
+  - projects contains multiple understanding:analyze resources
+- **has_many** research (strong strength via `path hierarchy`)
+  - projects contains multiple research resources
+- **has_many** dashboard (strong strength via `path hierarchy`)
+  - projects contains multiple dashboard resources
+- **has_many** stats (strong strength via `path hierarchy`)
+  - projects contains multiple stats resources
+- **has_many** understanding (strong strength via `path hierarchy`)
+  - projects contains multiple understanding resources
+- **has_many** requirements (strong strength via `path hierarchy`)
+  - projects contains multiple requirements resources
+- **has_many** answers (strong strength via `path hierarchy`)
+  - projects contains multiple answers resources
+
+### ProjectTypes Relationships
+
+- **has_many** questions (strong strength via `path hierarchy`)
+  - projectTypes contains multiple questions resources
+
+### Questions Relationships
+
+- **belongs_to** projectTypes (strong strength via `path hierarchy`)
+  - questions belongs to a projectTypes resource
+
+### Releases Relationships
+
+- **has_many** progress (strong strength via `path hierarchy`)
+  - releases contains multiple progress resources
 
 ### Analysis Relationships
 
@@ -906,97 +972,31 @@ graph TD
 - **references** analysis (medium strength via `analysisId`)
   - analysis references a analysis resource
 
-### Blockers Relationships
+### RegretFlags Relationships
 
 - **belongs_to** tasks (strong strength via `path hierarchy`)
-  - blockers belongs to a tasks resource
-
-### Requirements Relationships
-
-- **has_many** process (strong strength via `path hierarchy`)
-  - requirements contains multiple process resources
-- **has_many** status (strong strength via `path hierarchy`)
-  - requirements contains multiple status resources
-- **has_many** results (strong strength via `path hierarchy`)
-  - requirements contains multiple results resources
-- **belongs_to** projects (strong strength via `path hierarchy`)
-  - requirements belongs to a projects resource
-
-### Dependencies Relationships
-
-- **belongs_to** tasks (strong strength via `path hierarchy`)
-  - dependencies belongs to a tasks resource
-
-### Audits Relationships
-
-- **belongs_to** projects (strong strength via `path hierarchy`)
-  - audits belongs to a projects resource
-- **has_many** status (strong strength via `path hierarchy`)
-  - audits contains multiple status resources
-- **has_many** results (strong strength via `path hierarchy`)
-  - audits contains multiple results resources
-- **has_many** process (strong strength via `path hierarchy`)
-  - audits contains multiple process resources
-
-### Stats Relationships
-
-- **belongs_to** projects (strong strength via `path hierarchy`)
-  - stats belongs to a projects resource
+  - regretFlags belongs to a tasks resource
 
 ### Understanding Relationships
 
 - **belongs_to** projects (strong strength via `path hierarchy`)
   - understanding belongs to a projects resource
 
-### Releases Relationships
+### DependencyGraph Relationships
 
-- **has_many** progress (strong strength via `path hierarchy`)
-  - releases contains multiple progress resources
-
-### Context Relationships
-
-- **belongs_to** agents (strong strength via `path hierarchy`)
-  - context belongs to a agents resource
-
-### Tasks Relationships
-
-- **has_many** regretFlags (strong strength via `path hierarchy`)
-  - tasks contains multiple regretFlags resources
-- **has_many** dependencies (strong strength via `path hierarchy`)
-  - tasks contains multiple dependencies resources
-- **has_many** confidence (strong strength via `path hierarchy`)
-  - tasks contains multiple confidence resources
-- **belongs_to** features (strong strength via `path hierarchy`)
-  - tasks belongs to a features resource
-- **has_many** blockedBy (strong strength via `path hierarchy`)
-  - tasks contains multiple blockedBy resources
-- **has_many** dependencyGraph (strong strength via `path hierarchy`)
-  - tasks contains multiple dependencyGraph resources
-- **has_many** blockers (strong strength via `path hierarchy`)
-  - tasks contains multiple blockers resources
-- **has_many** dependencyTree (strong strength via `path hierarchy`)
-  - tasks contains multiple dependencyTree resources
-
-### Progress Relationships
-
-- **belongs_to** releases (strong strength via `path hierarchy`)
-  - progress belongs to a releases resource
+- **belongs_to** tasks (strong strength via `path hierarchy`)
+  - dependencyGraph belongs to a tasks resource
 
 ### Results Relationships
 
 - **belongs_to** audits (strong strength via `path hierarchy`)
   - results belongs to a audits resource
-- **belongs_to** requirements (strong strength via `path hierarchy`)
-  - results belongs to a requirements resource
 - **belongs_to** research (strong strength via `path hierarchy`)
   - results belongs to a research resource
+- **belongs_to** requirements (strong strength via `path hierarchy`)
+  - results belongs to a requirements resource
 - **references** research (medium strength via `researchId`)
   - results references a research resource
-
-### Confidence Relationships
-
-- **belongs_to** tasks (strong strength via `path hierarchy`)
-  - confidence belongs to a tasks resource
 
 ## Detected Patterns
 
@@ -1008,7 +1008,7 @@ graph TD
 API uses URL path versioning. Versions found: v1
 
 **Examples**:
-- /api/v1/requirements/{requirementId}
+- /api/v1/projects/{projectId}
 
 ### Batch_operations
 

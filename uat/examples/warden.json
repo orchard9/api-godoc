@@ -3,9 +3,47 @@
   "version": "version not set",
   "resources": [
     {
+      "name": "api-keys",
+      "description": "Api-keys resource operations",
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/api-keys/{id}",
+          "operationId": "AuthService_GetApiKey",
+          "isResourceOp": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/auth/api-keys/{id}",
+          "operationId": "AuthService_RevokeApiKey",
+          "isResourceOp": false
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/api-keys",
+          "operationId": "AuthService_ListApiKeys",
+          "isResourceOp": false
+        },
+        {
+          "method": "POST",
+          "path": "/v1/auth/api-keys",
+          "summary": "API key management",
+          "operationId": "AuthService_CreateApiKey",
+          "isResourceOp": false
+        }
+      ],
+      "isCollection": false
+    },
+    {
       "name": "auth",
       "description": "Auth resource operations",
       "operations": [
+        {
+          "method": "POST",
+          "path": "/v1/auth/login",
+          "operationId": "AuthService_Login",
+          "isResourceOp": false
+        },
         {
           "method": "POST",
           "path": "/v1/auth/logout",
@@ -24,44 +62,6 @@
           "summary": "Authentication methods",
           "operationId": "AuthService_Register",
           "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/v1/auth/login",
-          "operationId": "AuthService_Login",
-          "isResourceOp": false
-        }
-      ],
-      "isCollection": false
-    },
-    {
-      "name": "api-keys",
-      "description": "Api-keys resource operations",
-      "operations": [
-        {
-          "method": "GET",
-          "path": "/v1/auth/api-keys",
-          "operationId": "AuthService_ListApiKeys",
-          "isResourceOp": false
-        },
-        {
-          "method": "POST",
-          "path": "/v1/auth/api-keys",
-          "summary": "API key management",
-          "operationId": "AuthService_CreateApiKey",
-          "isResourceOp": false
-        },
-        {
-          "method": "GET",
-          "path": "/v1/auth/api-keys/{id}",
-          "operationId": "AuthService_GetApiKey",
-          "isResourceOp": false
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/auth/api-keys/{id}",
-          "operationId": "AuthService_RevokeApiKey",
-          "isResourceOp": false
         }
       ],
       "isCollection": false
@@ -72,7 +72,7 @@
       "type": "versioning",
       "description": "API uses URL path versioning. Versions found: v1",
       "examples": [
-        "/v1/auth/api-keys/{id}"
+        "/v1/auth/login"
       ],
       "confidence": "high",
       "impact": "Clients should be aware of API version compatibility"
@@ -84,7 +84,7 @@
     "totalEndpoints": 6,
     "resourceCoverage": 133
   },
-  "generatedAt": "2025-07-16T11:01:05.382132824-07:00",
+  "generatedAt": "2025-07-16T14:39:20.278580005-07:00",
   "specType": "OpenAPI 3.0.3",
   "originalPaths": 0
 }

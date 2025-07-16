@@ -2,15 +2,15 @@ API: warden/v1/common.proto vversion not set (OpenAPI 3.0.3)
 Stats: 2 resources, 8 operations, 6 endpoints
 
 RESOURCES:
-- auth (4 ops)
 - api-keys (4 ops)
+- auth (4 ops)
 
 KEY OPERATIONS:
-- POST /v1/auth/register (Authentication methods)
+- GET /v1/auth/api-keys/{id}
+- DELETE /v1/auth/api-keys/{id}
+- GET /v1/auth/api-keys
+- POST /v1/auth/api-keys (API key management)
 - POST /v1/auth/login
 - POST /v1/auth/logout
 - POST /v1/auth/refresh
-- GET /v1/auth/api-keys
-- POST /v1/auth/api-keys (API key management)
-- GET /v1/auth/api-keys/{id}
-- DELETE /v1/auth/api-keys/{id}
+- POST /v1/auth/register (Authentication methods)

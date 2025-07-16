@@ -4,7 +4,7 @@
 
 - **API Version**: version not set
 - **Specification Type**: OpenAPI 3.0.3
-- **Generated**: 2025-07-16 11:01:05
+- **Generated**: 2025-07-16 14:39:20
 
 ## API Statistics
 
@@ -53,5 +53,5 @@ Auth resource operations
 API uses URL path versioning. Versions found: v1
 
 **Examples**:
-- /v1/auth/api-keys
+- /v1/auth/register
 
