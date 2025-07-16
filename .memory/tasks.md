@@ -59,9 +59,6 @@ User-facing interface for the tool.
 Configure automated testing, linting, and builds.
 Ensures code quality and automated releases.
 
-### 20. Create example outputs through UAT
-Generate sample documentation for warden and forge APIs via UAT process.
-The UAT process should create example-output.md showing concrete sample outputs.
 
 ### 21. Implement UAT runner
 Create automated testing against example specifications in uat/artifacts/.
@@ -179,6 +176,12 @@ Created condensed format optimized for LLM context windows with key operations a
 CLI flag -f ai produces streamlined output focusing on essential API information.
 Format includes API stats, resource summaries with operation counts, and key CRUD operations.
 Successfully reduces verbose API specs to digestible format for AI analysis and understanding.
+
+### 20. Create example outputs through UAT ✓
+Enhanced UAT process to generate sample documentation with format-specific file extensions.
+Makefile dynamically processes any JSON files in uat/artifacts/ directory.
+Generates three output files per input: .md (markdown), .json (JSON), .ai (AI-optimized).
+Successfully tested with warden and forge APIs, creating 6 example files in uat/examples/.
 
 ### 19. Set up GitHub Actions CI ✓
 Created comprehensive CI/CD pipeline with multi-platform testing (Linux, Windows, macOS).

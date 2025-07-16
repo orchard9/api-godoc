@@ -99,16 +99,20 @@ uat: build
 	./$(BUILD_DIR)/$(BINARY_NAME) --help
 	@echo "Testing --version flag..."
 	./$(BUILD_DIR)/$(BINARY_NAME) --version
-	@echo "Testing with UAT artifacts..."
-	@if [ -f uat/artifacts/warden.v1.swagger.json ]; then \
-		echo "Testing with warden.v1.swagger.json..."; \
-		./$(BUILD_DIR)/$(BINARY_NAME) uat/artifacts/warden.v1.swagger.json; \
-	fi
-	@if [ -f uat/artifacts/forge.swagger.json ]; then \
-		echo "Testing with forge.swagger.json..."; \
-		./$(BUILD_DIR)/$(BINARY_NAME) uat/artifacts/forge.swagger.json; \
-	fi
-	@echo "UAT completed successfully"
+	@echo "Creating example outputs directory..."
+	@mkdir -p uat/examples
+	@echo "Testing with UAT artifacts and generating example outputs..."
+	@for spec in uat/artifacts/*.json; do \
+		if [ -f "$$spec" ]; then \
+			filename=$$(basename "$$spec"); \
+			base=$$(echo "$$filename" | cut -d. -f1); \
+			echo "Generating examples for $$base from $$filename..."; \
+			./$(BUILD_DIR)/$(BINARY_NAME) -f markdown -o "uat/examples/$$base.md" "$$spec"; \
+			./$(BUILD_DIR)/$(BINARY_NAME) -f json -o "uat/examples/$$base.json" "$$spec"; \
+			./$(BUILD_DIR)/$(BINARY_NAME) -f ai -o "uat/examples/$$base.ai" "$$spec"; \
+		fi \
+	done
+	@echo "UAT completed successfully - example outputs generated in uat/examples/"
 
 # Development helpers
 dev-setup:
