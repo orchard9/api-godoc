@@ -60,10 +60,6 @@ Configure automated testing, linting, and builds.
 Ensures code quality and automated releases.
 
 
-### 21. Implement UAT runner
-Create automated testing against example specifications in uat/artifacts/.
-Ensures tool works correctly with real-world API specifications.
-
 ### 22. Create project roadmap document
 Show feature timeline and development phases.
 Helps contributors and users understand project direction.
@@ -188,3 +184,9 @@ Created comprehensive CI/CD pipeline with multi-platform testing (Linux, Windows
 Configured automated testing, linting, security scanning, and coverage reporting.
 Added ACT for local GitHub Actions testing with proper documentation and setup guides.
 Implemented automated release pipeline with cross-platform binary builds and dependency management.
+
+### 21. Implement UAT runner ✓
+Created comprehensive UAT runner in Makefile with automated testing against example specifications.
+UAT target tests binary with --help, --version flags and processes all JSON files in uat/artifacts/.
+Generates example outputs in all three formats (markdown, JSON, AI-optimized) for each specification.
+Successfully runs automated testing with real-world API specifications (warden and forge APIs).
