@@ -2,65 +2,9 @@
 
 ## Pending Tasks
 
-### Foundation (Immediate Priority)
-
-### 1. Create Makefile with standard targets
-Set up build automation with ci, build, test, lint, and clean targets.
-Essential for consistent development workflow and CI/CD integration.
-
-### 2. Set up Go project structure
-Initialize go.mod and create standard project layout (cmd, internal, pkg).
-Foundation for clean architecture and proper dependency management.
-
-### 3. Add Swagger 2.0 to OpenAPI 3.x converter
-Implement converter to handle legacy Swagger specifications.
-Needed for UAT examples (warden, forge) which are in Swagger 2.0 format.
-
-### Core Functionality (High Priority)
-
-### 4. Create OpenAPI parser interface
-Design parser interface to handle file, URL, and stdin inputs.
-Core abstraction for flexible specification loading.
-
-### 5. Implement basic OpenAPI 3.x parser
-Use go-openapi or kin-openapi library for robust spec parsing.
-Essential for reading and validating API specifications.
-
-### 7. Design resource model structures
-Define Resource, Operation, Field, and Relationship models.
-Type-safe foundation for API analysis results.
-
-### 8. Implement relationship detection
-Analyze paths and schemas to identify resource relationships.
-Critical for understanding API structure and dependencies.
-
-### Output Generation (High Priority)
-
-### 9. Create markdown reporter
-Generate human-readable documentation with resource grouping.
-Primary output format for developer consumption.
-
-### 10. Create CLI with flags
-Wire up command-line interface with input/output options.
-User-facing interface for the tool.
-
-
-### Enhancement Features (Medium Priority)
-
-
-
-
-
 ### Quality & Documentation (Medium Priority)
 
-
-
-### 19. Set up GitHub Actions CI
-Configure automated testing, linting, and builds.
-Ensures code quality and automated releases.
-
-
-### 22. Create project roadmap document
+### 1. Create project roadmap document
 Show feature timeline and development phases.
 Helps contributors and users understand project direction.
 
@@ -125,6 +69,18 @@ CLI supports file and URL inputs, multiple output formats (markdown, JSON, AI), 
 Successfully integrated all components: parser, converter, analyzer, relationship detector, and reporter.
 All UAT tests pass with real-world API specifications including warden and forge APIs.
 
+### 11. Add JSON output format ✓
+Implemented structured JSON output using json.MarshalIndent for clean, indented JSON formatting.
+CLI flag -f json produces complete API analysis in JSON format for programmatic consumption.
+Successfully tested with UAT artifacts - provides structured data for tooling integration.
+Enables machine-readable output for CI/CD pipelines and automated documentation workflows.
+
+### 12. Create AI-optimized format ✓
+Created condensed format optimized for LLM context windows with key operations and relationships.
+CLI flag -f ai produces streamlined output focusing on essential API information.
+Format includes API stats, resource summaries with operation counts, and key CRUD operations.
+Successfully reduces verbose API specs to digestible format for AI analysis and understanding.
+
 ### 13. Add Mermaid diagram generation ✓
 Created resource relationship diagrams using Mermaid graph syntax for visual API understanding.
 Diagrams show resources as nodes with relationships as labeled edges, using arrow styles to indicate strength.
@@ -161,29 +117,17 @@ Created comprehensive integration tests and performance benchmarks for real-worl
 Stripe API: 216 resources extracted in 632ms. Performance: 248 ops/sec for full pipeline.
 Validated tool scales well with complex production APIs with sub-second processing times.
 
-### 11. Add JSON output format ✓
-Implemented structured JSON output using json.MarshalIndent for clean, indented JSON formatting.
-CLI flag -f json produces complete API analysis in JSON format for programmatic consumption.
-Successfully tested with UAT artifacts - provides structured data for tooling integration.
-Enables machine-readable output for CI/CD pipelines and automated documentation workflows.
-
-### 12. Create AI-optimized format ✓
-Created condensed format optimized for LLM context windows with key operations and relationships.
-CLI flag -f ai produces streamlined output focusing on essential API information.
-Format includes API stats, resource summaries with operation counts, and key CRUD operations.
-Successfully reduces verbose API specs to digestible format for AI analysis and understanding.
+### 19. Set up GitHub Actions CI ✓
+Created comprehensive CI/CD pipeline with multi-platform testing (Linux, Windows, macOS).
+Configured automated testing, linting, security scanning, and coverage reporting.
+Added ACT for local GitHub Actions testing with proper documentation and setup guides.
+Implemented automated release pipeline with cross-platform binary builds and dependency management.
 
 ### 20. Create example outputs through UAT ✓
 Enhanced UAT process to generate sample documentation with format-specific file extensions.
 Makefile dynamically processes any JSON files in uat/artifacts/ directory.
 Generates three output files per input: .md (markdown), .json (JSON), .ai (AI-optimized).
 Successfully tested with warden and forge APIs, creating 6 example files in uat/examples/.
-
-### 19. Set up GitHub Actions CI ✓
-Created comprehensive CI/CD pipeline with multi-platform testing (Linux, Windows, macOS).
-Configured automated testing, linting, security scanning, and coverage reporting.
-Added ACT for local GitHub Actions testing with proper documentation and setup guides.
-Implemented automated release pipeline with cross-platform binary builds and dependency management.
 
 ### 21. Implement UAT runner ✓
 Created comprehensive UAT runner in Makefile with automated testing against example specifications.
